@@ -1,0 +1,31 @@
+{
+  "name": "hapi-rethinkdb-api-boilerplate",
+  "version": "0.0.1",
+  "description": "NodeJS boilerplate based on hapi, rethinkdb",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.futurestud.io/marcus/hapi-rethinkdb-api-boilerplate.git"
+  },
+  "author": "Marcus Pöhls <marcus@futurestud.io>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "~0.8.0",
+    "hapi": "~6.5.0",
+    "hapi-versions": "~0.1.0",
+    "passport": "~0.2.0",
+    "thinky": "~1.13.12",
+    "when" : "~3.4.3"
+  },
+  "devDependencies": {
+    "istanbul": "~0.3.0",
+    "mocha": "~1.21.4",
+    "should": "~4.0.4",
+    "supertest": "~0.13.0",
+    "jshint": "~2.5.3"
+  },
+  "private": true
+}
