@@ -1,5 +1,5 @@
 var plugins = function(server) {
-    // Options to pass into the 'Good' plugin
+    // options to pass into the 'good' logging plugin
     var goodOptions = {
         subscribers: {
             console: ['ops', 'request', 'log', 'error'],
@@ -7,7 +7,7 @@ var plugins = function(server) {
         }
     };
 
-    // The Assets Configuaration Options
+    // the assets configuaration options
     var assetOptions = require('../../assets');
 
     server.pack.register([
