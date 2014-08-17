@@ -4,7 +4,7 @@ module.exports = function (env) {
             host: "localhost",
             port: 28015,
             authKey: "",
-            db: "hapi-rethinkdb-boilerplate"
+            db: "hapi_rethinkdb_boilerplate"
         };
     }
     else if (env === 'dev' || env === 'development') {
@@ -12,7 +12,7 @@ module.exports = function (env) {
             host: "localhost",
             port: 28015,
             authKey: "",
-            db: "hapi-rethinkdb-boilerplate"
+            db: "hapi_rethinkdb_boilerplate"
         };
     }
 };

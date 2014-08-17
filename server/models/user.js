@@ -2,11 +2,6 @@ var dbconfig    = require(__dirname + '/../config/database')(process.env.NODE_EN
     thinky      = require('thinky')(dbconfig),
     r           = thinky.r;
 
-// Import rethinkdbdash
-//var thinky = require('thinky')(config.rethinkdb);
-var thinky = require('thinky')(dbconfig);
-
-
 var User = thinky.createModel("User", {
     id: String,
     name: String,
@@ -14,8 +9,8 @@ var User = thinky.createModel("User", {
     password: String,
     password_reset_token: String,
     password_reset_deadline: Date,
-    auth_token: { type: String, unique: true },
-    auth_token_issued: { type: Date },
+    auth_token: String,
+    auth_token_issued: Date,
     createdAt: {_type: Date, default: r.now()},
     editedAt: {_type: Date, default: r.now()},
 });
