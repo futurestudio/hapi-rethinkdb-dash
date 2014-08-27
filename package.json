@@ -6,9 +6,9 @@
   "dependencies": {
     "bcrypt": "~0.8.0",
     "boom": "~2.5.1",
-    "good": "~2.2.1",
-    "handlebars": "~2.0.0-alpha.4",
-    "hapi": "~6.5.1",
+    "good": "~2.2.3",
+    "handlebars": "~2.0.0-beta.1",
+    "hapi": "~6.6.0",
     "hapi-assets": "~0.2.0",
     "hapi-cache-buster": "~0.2.0",
     "hapi-named-routes": "~0.2.0",
@@ -18,12 +18,12 @@
     "lodash": "~2.4.1",
     "passport": "~0.2.0",
     "require-directory": "~2.0.0",
-    "thinky": "~1.13.12",
+    "thinky": "~1.14.0",
     "when": "~3.4.3"
   },
   "devDependencies": {
     "istanbul": "~0.3.0",
-    "jshint": "~2.5.3",
+    "jshint": "~2.5.5",
     "mocha": "~1.21.4",
     "should": "~4.0.4",
     "supertest": "~0.13.0"
