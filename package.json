@@ -8,7 +8,7 @@
     "boom": "~2.5.1",
     "good": "~2.2.3",
     "handlebars": "~2.0.0-beta.1",
-    "hapi": "~6.6.0",
+    "hapi": "~6.7.1",
     "hapi-assets": "~0.2.0",
     "hapi-cache-buster": "~0.2.0",
     "hapi-named-routes": "~0.2.0",
