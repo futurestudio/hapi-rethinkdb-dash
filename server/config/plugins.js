@@ -1,29 +1,33 @@
 var plugins = function(server) {
     // options to pass into the 'good' logging plugin
     var goodOptions = {
-        subscribers: {
-            console: ['ops', 'request', 'log', 'error'],
-            'tmp/logs/': ['ops', 'request', 'log', 'error']
-        }
+        reporters: [{
+            reporter: require('good-console'),
+            args:[{ log: '*', response: '*' }]
+        }]
+        //subscribers: {
+        //    console: ['ops', 'request', 'log', 'error'],
+        //    'tmp/logs/': ['ops', 'request', 'log', 'error']
+        //}
     };
 
     // the assets configuaration options
     var assetOptions = require('../../assets');
 
-    server.pack.register([
+    server.register([
         {
-            plugin: require("good"),
+            register: require("good"),
             options: goodOptions
         },
         {
-            plugin: require("hapi-assets"),
+            register: require("hapi-assets"),
             options: assetOptions
         },
         {
-            plugin: require("hapi-named-routes")
+            register: require("hapi-named-routes")
         },
         {
-            plugin: require("hapi-cache-buster")
+            register: require("hapi-cache-buster")
         }
     ], function(err) {
         if (err) throw err;
