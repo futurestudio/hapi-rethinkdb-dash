@@ -2,17 +2,19 @@
 module.exports = {
     index: {
         handler: function(request, reply) {
-            console.log('hallo');
             // Render the view with the custom greeting
-            reply.view('index', { title: 'Awesome Boilerplate Homepage' });
-        },
-        app: { name: 'index' }
+            var context = {
+                title: 'Views Example',
+                message: 'Hello, World'
+            };
+
+            return reply.view('index', context);
+        }
     },
     about: {
         handler: function(request, reply) {
             reply.view('about', { title: 'This is the example about page' });
-        },
-        app: { name: 'about' }
+        }
     },
     missing: {
         handler: function(request, reply) {
@@ -22,4 +24,4 @@ module.exports = {
         },
         app: { name: '404' }
     }
-}
+};

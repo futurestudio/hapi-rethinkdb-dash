@@ -9,13 +9,13 @@ routes = function(server) {
     var routeTable = [
         {
             method: 'GET',
-            path: '/about',
-            config: controller.base.about
+            path: '/',
+            config: controller.base.index
         },
         {
             method: 'GET',
-            path: '/',
-            config: controller.base.index
+            path: '/about',
+            config: controller.base.about
         },
         {
             method: 'GET',
@@ -41,13 +41,9 @@ routes = function(server) {
             method: 'GET',
             path: '/js/{path*}',
             config: controller.assets.js
-        },
-        {
-            method: 'GET',
-            path: '/bower_components/{path*}',
-            config: controller.assets.bower
         }
     ];
+
     return routeTable;
 };
 

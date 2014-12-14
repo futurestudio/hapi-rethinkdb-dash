@@ -6,7 +6,7 @@ var server = new hapi.Server();
 
 // add connection parameters
 server.connection({
-    host: '0.0.0.0',
+    host: 'localhost',
     port: config.port
 });
 
@@ -17,7 +17,6 @@ require('./server/config/plugins')(server);
 
 // Require the routes and pass the server object.
 var routes = require('./server/config/routes')(server);
-// Add the server routes
 server.route(routes);
 
 //Start the server

@@ -31,13 +31,5 @@ module.exports = {
         app: {
             name: 'js'
         }
-    },
-    bower: {
-        handler: {
-            directory: { path: './public/bower_components' }
-        },
-        app: {
-            name: 'bower'
-        }
     }
 };
