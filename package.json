@@ -10,23 +10,18 @@
     "good-console": "~3.0.1",
     "handlebars": "~2.0.0",
     "hapi": "~8.0.0",
-    "hapi-assets": "~0.2.1",
-    "hapi-cache-buster": "~0.2.0",
-    "hapi-named-routes": "~0.2.0",
-    "hapi-sass": "~1.0.0",
-    "hapi-versions": "~0.1.0",
     "joi": "~5.0.2",
     "lodash": "~2.4.1",
     "passport": "~0.2.1",
     "require-directory": "~2.0.0",
-    "thinky": "~1.15.5",
-    "when": "~3.6.3"
+    "thinky": "~1.15.6",
+    "when": "~3.6.4"
   },
   "devDependencies": {
     "istanbul": "~0.3.5",
     "jshint": "~2.5.10",
     "mocha": "~2.0.1",
-    "should": "~4.4.0",
+    "should": "~4.4.1",
     "supertest": "~0.15.0"
   },
   "homepage": "http://futurestud.io",
@@ -41,6 +36,7 @@
     "url": "https://git.futurestud.io/marcus/hapi-rethinkdb-api-boilerplate.git"
   },
   "scripts": {
+    "start": "node server",
     "test": "npm test"
   }
 }
