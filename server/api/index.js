@@ -2,8 +2,7 @@
 
 var _                   = require('lodash'),
     // Include Endpoints
-    users               = require('./users'),
-    errors              = require('../errors');
+    users               = require('./users');
 
 /**
 * ## Public API

@@ -1,5 +1,6 @@
-var User                = require('../models/user'),
-    errors              = require('../errors'),
+var _                   = require('lodash'),
+    User                = require('../models/user'),
+    Boom                = require('boom'),
     users;
 
 
@@ -11,12 +12,14 @@ users = {
     *
     */
     find: function() {
-        return User.get().run().then(function (users) {
+        return User.run().then(function (users) {
             if (users) {
-                return users.toJSON();
+                return users;
             }
 
-            return new errors.NotFoundError('Users not found.');
+            return Boom.notFound('No users found');
+        }).error(function(error) {
+            console.log(error);
         });
     },
 
@@ -25,20 +28,35 @@ users = {
     * @returns User
     */
     findById: function(id) {
+        if (_.isEmpty(id)) {
+            return Boom.badRequest('User id missing');
+        }
+
         return User.get(id).run().then(function (user) {
             if (user) {
-                return user.toJSON();
+                return user;
             }
 
-            return new errors.NotFoundError('User not found.');
+            return Boom.notFound('User not found');
+        }).error(function(e) {
+            return Boom.badImplementation('An error occured while reading user data');
         });
     },
 
     /**
      * @returns User
      */
-    create: function() {
+    create: function(new_user) {
+        if (_.isEmpty(new_user) || _.isEmpty(new_user.email)) {
+            return Boom.badRequest('User data missing');
+        }
 
+        var user = new User(new_user);
+        return user.save().then(function (doc) {
+            return doc;
+        }).error(function (error) {
+            return Boom.badImplementation('An error occured while creating the user');
+        });
     },
 
     /**
@@ -55,3 +73,5 @@ users = {
 
     }
 };
+
+module.exports = users;

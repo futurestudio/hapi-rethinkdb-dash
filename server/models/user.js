@@ -1,18 +1,27 @@
-var dbconfig    = require(__dirname + '/../config/database')(process.env.NODE_ENV || 'dev'),
+var dbconfig    = require(__dirname + '/../config/database')(process.env.NODE_ENV || 'local'),
     thinky      = require('thinky')(dbconfig),
-    r           = thinky.r;
+    r           = thinky.r,
+    User;
 
-var User = thinky.createModel("User", {
-    id: String,
-    name: String,
+User = thinky.createModel("User", {
+    id: { _type: String, default: r.uuid()},
+    first_name: String,
+    last_name: String,
+    full_name: {
+        _type: "virtual",
+        default: function() {
+            return this.firstName + " " + this.lastName;
+        }
+    },
     email: String,
+    email_verification: {_type: String, default: r.uuid()},
     password: String,
     password_reset_token: String,
     password_reset_deadline: Date,
     auth_token: String,
     auth_token_issued: Date,
-    createdAt: {_type: Date, default: r.now()},
-    editedAt: {_type: Date, default: r.now()},
+    created_at: {_type: Date, default: r.now()},
+    updated_at: {_type: Date, default: r.now()},
 });
 
 module.exports = User;
