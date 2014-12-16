@@ -1,5 +1,4 @@
 var api                 = require('../api'),
-    Boom              = require('boom'),
     users;
 
 
