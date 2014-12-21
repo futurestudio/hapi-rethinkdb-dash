@@ -1,8 +1,6 @@
 // # Data API
 
-var _                   = require('lodash'),
-    // Include Endpoints
-    users               = require('./users');
+var users               = require('./users');
 
 /**
 * ## Public API

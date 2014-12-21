@@ -11,7 +11,9 @@ users = {
     */
     find: {
         handler: function(request, reply) {
-            return reply(api.users.find());
+            return api.users.find().then(function(data) {
+                return reply(data);
+            });
         }
     },
 
@@ -21,8 +23,10 @@ users = {
     */
     findById: {
         handler: function(request, reply) {
-            var user_id = request.params.user_id;
-            return reply(api.users.findById(user_id));
+            var userId = request.params.user_id;
+            return api.users.findById(userId).then(function (data) {
+                return reply(data);
+            });
         }
     },
 
@@ -31,8 +35,9 @@ users = {
     */
     create: {
         handler: function(request, reply) {
-            var res = api.users.create(request.payload);
-            return reply(res);
+            return api.users.create(request.payload).then(function (data) {
+                return reply(data).code(201);
+            });
         }
     },
 
