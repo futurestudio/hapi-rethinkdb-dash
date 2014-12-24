@@ -1,6 +1,7 @@
 var _                   = require('lodash'),
     Boom                = require('boom'),
     when                = require('when'),
+    validator           = require('validator'),
     User                = require('../models/user'),
     utils               = require('./utils'),
     users;
@@ -52,12 +53,25 @@ users = {
         var user;
 
         return utils.checkObject(object).then(function(userdata) {
+            if ( ! validator.isEmail(userdata.email)) {
+                return when.reject(Boom.badRequest('Email address missing.'));
+            }
+
+            if ( ! validator.isLength(userdata.password, 6)) {
+                return when.reject(Boom.badRequest('Password must be at least 6 characters.'));
+            }
+
             user = new User(userdata);
+
             return User.filter({email: user.email}).run().then(function(foundUsers) {
                 if (_.isEmpty(foundUsers)) {
                     return user.save().then(function (doc) {
                         return doc;
                     }).error(function (error) {
+                        if (error) {
+                            return when.reject(error);
+                        }
+
                         return when.reject(Boom.badImplementation('An error occured while creating the user.'));
                     });
                 } else {

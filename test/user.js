@@ -19,9 +19,10 @@ describe('User API methods: CRUD', function() {
     after(cleanTables);
 
     before(function() {
-        user = new User({
-            email: 'test@futurestud.io'
-        });
+        user = {
+            email: 'test@futurestud.io',
+            password: 'testpassword'
+        };
     });
 
     it('Create new user', function(done) {
@@ -40,7 +41,42 @@ describe('User API methods: CRUD', function() {
 
     it('Should not create a second user with the same email address', function(done) {
         api.users.create(user).then(function(result) {
-            assert.notEqual(user, result);
+            assert(result);
+            assert(result.output);
+            assert(result.output.statusCode);
+            assert.equal(result.output.statusCode, 400);
+            done();
+        }).catch(function(error) {
+            done(error);
+        });
+    });
+
+    it('Should not create user without email', function(done) {
+        var u = {
+            password: 'testpassword'
+        };
+
+        api.users.create(u).then(function(result) {
+            assert(result);
+            assert(result.output);
+            assert(result.output.statusCode);
+            assert.equal(result.output.statusCode, 400);
+            done();
+        }).catch(function(error) {
+            done(error);
+        });
+    });
+
+    it('Should not create user without password', function(done) {
+        var u = {
+            email: 'userwithoutpassword@futurestud.io'
+        };
+
+        api.users.create(u).then(function(result) {
+            assert(result);
+            assert(result.output);
+            assert(result.output.statusCode);
+            assert.equal(result.output.statusCode, 400);
             done();
         }).catch(function(error) {
             done(error);
