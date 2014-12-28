@@ -47,6 +47,31 @@ users = {
     },
 
     /**
+    * Find user by email
+    *
+    * @returns User
+    */
+    findByEmail: function(email) {
+        if (_.isEmpty(email)) {
+            return Boom.badRequest('Email missing.');
+        }
+
+        if ( ! validator.isEmail(email)) {
+            return when.reject(Boom.badRequest('Email address required.'));
+        }
+
+        return User.filter({email: email}).run().then(function (user) {
+            if (user) {
+                return user;
+            }
+
+            return Boom.notFound('User not found.');
+        }).error(function(e) {
+            return Boom.badImplementation('An error occured while reading user data.');
+        });
+    },
+
+    /**
      * @returns User
      */
     create: function(object) {

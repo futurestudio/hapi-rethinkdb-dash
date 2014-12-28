@@ -32,6 +32,19 @@ users = {
     },
 
     /**
+    *
+    * @returns User
+    */
+    findByEmail: {
+        handler: function(request, reply) {
+            var userId = request.payload.;
+            return api.users.findById(userId).then(function (data) {
+                return reply(data);
+            });
+        }
+    },
+
+    /**
     * @returns User
     */
     create: {
