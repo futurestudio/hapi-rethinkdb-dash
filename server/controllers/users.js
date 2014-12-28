@@ -37,8 +37,8 @@ users = {
     */
     findByEmail: {
         handler: function(request, reply) {
-            var userId = request.payload.;
-            return api.users.findById(userId).then(function (data) {
+            var email = request.payload.email;
+            return api.users.findByEmail(email).then(function (data) {
                 return reply(data);
             });
         }

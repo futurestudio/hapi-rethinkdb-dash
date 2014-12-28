@@ -4,14 +4,13 @@
   "version": "0.1.0",
   "author": "Marcus Pöhls <marcus@futurestud.io>",
   "dependencies": {
-    "bcrypt": "~0.8.0",
+    "bcrypt-as-promised": "~1.0.1",
     "boom": "~2.6.1",
     "good": "~5.1.0",
-    "good-console": "~3.1.2",
+    "good-console": "~4.0.0",
     "handlebars": "~2.0.0",
     "hapi": "~8.0.0",
     "hapi-auth-cookie": "~2.0.0",
-    "joi": "~5.0.2",
     "validator": "~3.26.0",
     "lodash": "~2.4.1",
     "passport": "~0.2.1",
@@ -21,7 +20,7 @@
   },
   "devDependencies": {
     "istanbul": "~0.3.5",
-    "mocha": "~2.0.1",
+    "mocha": "~2.1.0",
     "should": "~4.4.1"
   },
   "homepage": "http://futurestud.io",
