@@ -2,7 +2,6 @@ var dbconfig                = require(__dirname + '/../config/database')(process
     thinky                  = require('thinky')(dbconfig),
     r                       = thinky.r,
     bcrypt                  = require('bcrypt-as-promised'),
-    Joi                     = require('joi'),
     when                    = require('when'),
     _                       = require('lodash'),
     Boom                    = require('boom'),
