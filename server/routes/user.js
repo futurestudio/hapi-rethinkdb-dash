@@ -21,6 +21,21 @@ routes = function(server) {
             method: 'POST',
             path: '/users',
             config: controller.users.create
+        },
+        {
+            method: 'POST',
+            path: '/login',
+            config: controller.users.login
+        },
+        {
+            method: 'GET',
+            path: '/logout',
+            config: controller.users.logout
+        },
+        {
+            method: 'GET',
+            path: '/profile',
+            config: controller.users.profile
         }
     ];
 

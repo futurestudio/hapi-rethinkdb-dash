@@ -9,11 +9,21 @@ var plugins = function(server) {
 
     server.register([
         {
-            register: require("good"),
+            register: require('good'),
             options: goodOptions
+        },
+        {
+            register: require('hapi-auth-cookie')
         }
     ], function(err) {
         if (err) throw err;
+    });
+
+    server.auth.strategy('session', 'cookie', {
+        password: 'thisisasecretpassword',
+        cookie: 'hapi-rethink-boilerplate',
+        redirectTo: '/login',
+        isSecure: false
     });
 };
 

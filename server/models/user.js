@@ -3,10 +3,9 @@ var dbconfig                = require(__dirname + '/../config/database')(process
     r                       = thinky.r,
     bcrypt                  = require('bcrypt-as-promised'),
     when                    = require('when'),
-    _                       = require('lodash'),
     Boom                    = require('boom'),
+    _                       = require('lodash'),
     SALT_WORK_FACTOR        = 10,
-    Schema,
     User;
 
 User = thinky.createModel("User", {

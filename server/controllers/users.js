@@ -62,6 +62,53 @@ users = {
     /**
     * @returns User
     */
+    login: {
+        handler: function(request, reply) {
+            return api.users.login(request).then(function (data) {
+                if (_.isEmpty(data.output)) {
+                    request.auth.session.set(data);
+                    return reply(data).code(200);
+                }
+
+                return reply(data);
+            });
+        }
+    },
+
+    /**
+    *
+    * @returns User
+    */
+    logout: {
+        handler: function(request, reply) {
+            request.auth.session.clear();
+            return reply.redirect('/');
+        },
+        auth: 'session'
+    },
+
+    /**
+    *
+    * @returns User
+    */
+    profile: {
+        handler: function(request, reply) {
+
+        },
+        auth: {
+            mode: 'try',
+            strategy: 'session'
+        },
+        plugins: {
+            'hapi-auth-cookie': {
+                redirectTo: '/login'
+            }
+        }
+    },
+
+    /**
+    * @returns User
+    */
     update: function() {
 
     },

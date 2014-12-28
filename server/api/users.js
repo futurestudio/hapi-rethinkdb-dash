@@ -17,7 +17,7 @@ users = {
     find: function() {
         return User.run().then(function (users) {
             if (users) {
-                return users;
+                return when.resolve(users);
             }
 
             return Boom.notFound('No users found');
@@ -37,7 +37,7 @@ users = {
 
         return User.get(id).run().then(function (user) {
             if (user) {
-                return user;
+                return when.resolve(user);
             }
 
             return Boom.notFound('User not found.');
@@ -60,9 +60,30 @@ users = {
             return when.reject(Boom.badRequest('Email address required.'));
         }
 
-        return User.filter({email: email}).run().then(function (user) {
+        return User.filter({email: email}).run().then(function (users) {
+            if (_.isEmpty(users)) {
+                return Boom.notFound('User not found.');
+            }
+
+            return when.resolve(_.first(users));
+        }).error(function(e) {
+            return Boom.badImplementation('An error occured while reading user data.');
+        });
+    },
+
+    /**
+    * Find user by email
+    *
+    * @returns User
+    */
+    findByAuthToken: function(token) {
+        if (_.isEmpty(token)) {
+            return Boom.badRequest('Token missing.');
+        }
+
+        return User.filter({auth_token: token}).run().then(function (user) {
             if (user) {
-                return user;
+                return when.resolve(user);
             }
 
             return Boom.notFound('User not found.');
@@ -105,6 +126,33 @@ users = {
                     }
                 });
             });
+        }).catch(function (error) {
+            return error;
+        });
+    },
+
+    /**
+     * @returns User
+     */
+    login: function(request) {
+        if (request.auth.isAuthenticated) {
+            console.log(request.auth.session);
+            return when.resolve(request.auth.session);
+        }
+
+        var user = request.payload;
+        var userApi = this;
+
+        return utils.checkObject(user).then(function(userdata) {
+            if ( ! validator.isEmail(userdata.email)) {
+                return when.reject(Boom.badRequest('Email address missing.'));
+            }
+
+            if ( ! validator.isLength(userdata.password, 6)) {
+                return when.reject(Boom.badRequest('Password missing.'));
+            }
+
+            return userApi.findByEmail(userdata.email);
         }).catch(function (error) {
             return error;
         });
