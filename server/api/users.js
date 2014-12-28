@@ -63,23 +63,23 @@ users = {
 
             user = new User(userdata);
 
-            return User.filter({email: user.email}).run().then(function(foundUsers) {
-                if (_.isEmpty(foundUsers)) {
-                    return user.save().then(function (doc) {
-                        return doc;
-                    }).error(function (error) {
-                        if (error) {
-                            return when.reject(error);
-                        }
+            return user.generatePassword().then(function(user) {
+                return User.filter({email: user.email}).run().then(function(foundUsers) {
+                    if (_.isEmpty(foundUsers)) {
+                        return user.save().then(function (doc) {
+                            return doc;
+                        }).error(function (error) {
+                            if (error) {
+                                return when.reject(error);
+                            }
 
-                        return when.reject(Boom.badImplementation('An error occured while creating the user.'));
-                    });
-                } else {
-                    return when.reject(Boom.badRequest('User is already registered.'));
-                }
+                            return when.reject(Boom.badImplementation('An error occured while creating the user.'));
+                        });
+                    } else {
+                        return when.reject(Boom.badRequest('User is already registered.'));
+                    }
+                });
             });
-        }).then(function() {
-            return when.resolve(user);
         }).catch(function (error) {
             return error;
         });

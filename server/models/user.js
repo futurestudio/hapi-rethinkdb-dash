@@ -25,10 +25,10 @@ User = thinky.createModel("User", {
     password: String,
     password_reset_token: String,
     password_reset_deadline: Date,
-    auth_token: String,
-    auth_token_issued: Date,
+    auth_token: { _type: String, default: r.uuid()},
+    auth_token_issued: {_type: Date, default: r.now()},
     created_at: {_type: Date, default: r.now()},
-    updated_at: {_type: Date, default: r.now()},
+    updated_at: {_type: Date, default: r.now()}
 });
 
 User.prototype.comparePassword = function(candidatePassword) {
@@ -39,18 +39,26 @@ User.prototype.comparePassword = function(candidatePassword) {
     });
 };
 
-User.prototype.generatePassword = function(password) {
-    bcrypt.genSalt(SALT_WORK_FACTOR).then(function(salt) {
-        bcrypt.hash(password, salt).then(function(hash) {
-            this.password = hash;
-            return next();
-        }).catch(function(error) {
-            console.log(error);
-            return next(error);
+User._methods.generatePassword = function() {
+    var user = this;
+
+    return bcrypt.genSalt(SALT_WORK_FACTOR).then(function(salt) {
+        return bcrypt.hash(user.password, salt).then(function(hash) {
+            user.password = hash;
+            return when.promise(function(resolve, reject, notify) {
+                resolve(user);
+            });
+        });
+    }).then(function(user) {
+        return bcrypt.genSalt(SALT_WORK_FACTOR).then(function(token) {
+            user.auth_token = token;
+            return when.promise(function(resolve, reject, notify) {
+                resolve(user);
+            });
         });
     }).catch(function(error) {
         console.log(error);
-        return next(error);
+        return when.reject(error);
     });
 };
 

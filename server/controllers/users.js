@@ -1,4 +1,5 @@
 var api                 = require('../api'),
+    _                   = require('lodash'),
     users;
 
 
@@ -36,7 +37,11 @@ users = {
     create: {
         handler: function(request, reply) {
             return api.users.create(request.payload).then(function (data) {
-                return reply(data).code(201);
+                if (_.isEmpty(data.output)) {
+                    return reply(data).code(201);
+                }
+
+                return reply(data);
             });
         }
     },
