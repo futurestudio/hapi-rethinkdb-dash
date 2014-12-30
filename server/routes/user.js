@@ -23,6 +23,13 @@ routes = function(server) {
             config: controller.users.create
         },
         {
+            method: 'GET',
+            path: '/login',
+            handler: function(request, reply) {
+                reply.view('login');
+            }
+        },
+        {
             method: 'POST',
             path: '/login',
             config: controller.users.login

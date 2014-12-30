@@ -21,7 +21,6 @@ module.exports = {
             reply.view('404', {
                 title: 'You found a missing page, but won the 404 error!'
             }).code(404);
-        },
-        app: { name: '404' }
+        }
     }
 };

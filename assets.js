@@ -8,4 +8,4 @@ module.exports = {
         js: ['js/scripts.js'],
         css: ['css/styles.css']
     }
-}
+};

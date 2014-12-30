@@ -2,7 +2,7 @@
 module.exports = {
     partials: {
         handler: {
-            directory: { path: './server/views/partials' }
+            directory: { path: './public/views/partials' }
         },
         app: {
             name: 'partials'

@@ -6,7 +6,7 @@ module.exports = {
     hapi: {
         options: {
             views: {
-                path: path.join(__dirname, '..', 'views'),
+                path: path.join(__dirname, '..', '..', 'public', 'views'),
                 engines: { html: require('handlebars') }
             }
         }
