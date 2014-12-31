@@ -1,4 +1,5 @@
-var path        = require('path');
+var path        = require('path'),
+    views       = path.join(__dirname, '..', '..', 'public', 'views');
 
 // defaults that you can access when you require this config.
 module.exports = {
@@ -6,8 +7,13 @@ module.exports = {
     hapi: {
         options: {
             views: {
-                path: path.join(__dirname, '..', '..', 'public', 'views'),
-                engines: { html: require('handlebars') }
+                engines: {
+                    html: require('handlebars')
+                },
+                path: views,
+                partialsPath: views,
+                layoutPath: views,
+                layout: 'default'
             }
         }
     }

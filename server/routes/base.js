@@ -24,11 +24,6 @@ routes = function(server) {
         },
         {
             method: 'GET',
-            path: '/partials/{path*}',
-            config: controller.assets.partials
-        },
-        {
-            method: 'GET',
             path: '/images/{path*}',
             config: controller.assets.images
         },
