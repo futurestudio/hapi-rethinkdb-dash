@@ -26,7 +26,14 @@ routes = function(server) {
             method: 'GET',
             path: '/login',
             handler: function(request, reply) {
-                reply.view('login');
+                return { body: reply.view('login')};
+            }
+        },
+        {
+            method: 'GET',
+            path: '/signup',
+            handler: function(request, reply) {
+                reply.view('signup');
             }
         },
         {

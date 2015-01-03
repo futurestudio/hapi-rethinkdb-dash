@@ -1,5 +1,5 @@
-var path        = require('path'),
-    views       = path.join(__dirname, '..', '..', 'public', 'views');
+var path                = require('path'),
+    views               = path.join(__dirname, '..', '..', 'public', 'views');
 
 // defaults that you can access when you require this config.
 module.exports = {
@@ -11,9 +11,10 @@ module.exports = {
                     html: require('handlebars')
                 },
                 path: views,
-                partialsPath: views,
-                layoutPath: views,
-                layout: 'default'
+                layoutPath: views + '/layout',
+                layout: 'default',
+                helpersPath: views + '/helpers',
+                partialsPath: views
             }
         }
     }

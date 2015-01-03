@@ -4,8 +4,8 @@ module.exports = {
         handler: function(request, reply) {
             // Render the view with the custom greeting
             var context = {
-                title: 'Views Example',
-                message: 'Hello, World'
+                title: 'This is Index!',
+                message: 'Hello, World. You crazy handlebars layout',
             };
 
             return reply.view('index', context);
@@ -13,12 +13,12 @@ module.exports = {
     },
     about: {
         handler: function(request, reply) {
-            reply.view('about', { title: 'This is the example about page' });
+            return reply.view('about', { title: 'This is the example about page' });
         }
     },
     missing: {
         handler: function(request, reply) {
-            reply.view('404', {
+            return reply.view('404', {
                 title: 'You found a missing page, but won the 404 error!'
             }).code(404);
         }
