@@ -40,7 +40,7 @@ users = {
                 return when.resolve(user);
             }
 
-            return Boom.notFound('User not found.');
+            return Boom.notFound('No user registered with provided credentials.');
         }).error(function(e) {
             return Boom.badImplementation('An error occured while reading user data.');
         });
@@ -62,7 +62,7 @@ users = {
 
         return User.filter({email: email}).run().then(function (users) {
             if (_.isEmpty(users)) {
-                return Boom.notFound('User not found.');
+                return Boom.notFound('No user registered with provided credentials.');
             }
 
             return when.resolve(_.first(users));
@@ -86,7 +86,7 @@ users = {
                 return when.resolve(user);
             }
 
-            return Boom.notFound('User not found.');
+            return Boom.notFound('No user registered with provided credentials.');
         }).error(function(e) {
             return Boom.badImplementation('An error occured while reading user data.');
         });
@@ -134,13 +134,7 @@ users = {
     /**
      * @returns User
      */
-    login: function(request) {
-        if (request.auth.isAuthenticated) {
-            console.log(request.auth.session);
-            return when.resolve(request.auth.session);
-        }
-
-        var user = request.payload;
+    login: function(user) {
         var userApi = this;
 
         return utils.checkObject(user).then(function(userdata) {

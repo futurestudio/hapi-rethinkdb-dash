@@ -25,16 +25,17 @@ routes = function(server) {
         {
             method: 'GET',
             path: '/login',
-            handler: function(request, reply) {
-                return { body: reply.view('login')};
-            }
+            config: controller.users.showLogin
         },
         {
             method: 'GET',
             path: '/signup',
-            handler: function(request, reply) {
-                reply.view('signup');
-            }
+            config: controller.users.showSignup
+        },
+        {
+            method: 'POST',
+            path: '/signup',
+            config: controller.users.signup
         },
         {
             method: 'POST',

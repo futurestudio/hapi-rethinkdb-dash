@@ -62,16 +62,100 @@ users = {
     /**
     * @returns User
     */
-    login: {
+    showSignup: {
         handler: function(request, reply) {
-            return api.users.login(request).then(function (data) {
+            if (request.auth.isAuthenticated) {
+                return reply.redirect('/profile');
+            }
+
+            return reply.view('signup');
+        },
+        auth: {
+            mode: 'try',
+            strategy: 'session'
+        },
+        plugins: {
+            'hapi-auth-cookie': {
+                redirectTo: false
+            }
+        }
+    },
+
+    /**
+    * @returns User
+    */
+    signup: {
+        handler: function(request, reply) {
+            if (request.auth.isAuthenticated) {
+                return reply.redirect('/profile');
+            }
+
+            return api.users.create(request.payload).then(function (data) {
                 if (_.isEmpty(data.output)) {
                     request.auth.session.set(data);
-                    return reply(data).code(200);
+                    return reply.redirect('/profile');
                 }
 
-                return reply(data);
+                console.logout(data);
+
+                return reply.view('signup', { errormessage: data.output.payload.message });
             });
+        }
+    },
+
+    /**
+    * @returns User
+    */
+    showLogin: {
+        handler: function(request, reply) {
+            if (request.auth.isAuthenticated) {
+                return reply.redirect('/profile');
+            }
+
+            return reply.view('login');
+        },
+        auth: {
+            mode: 'try',
+            strategy: 'session'
+        },
+        plugins: {
+            'hapi-auth-cookie': {
+                redirectTo: false
+            }
+        }
+    },
+
+    /**
+    * @returns User
+    */
+    login: {
+        handler: function(request, reply) {
+            if (request.auth.isAuthenticated) {
+                return reply.redirect('/profile');
+            }
+
+            var data = {
+                email: request.payload.email_username,
+                password: request.payload.password
+            };
+
+            return api.users.login(data).then(function (data) {
+                if (_.isEmpty(data.output)) {
+                    request.auth.session.set(data);
+                    return reply.redirect('/profile');
+                }
+
+                return reply.view('login', { errormessage: data.output.payload.message });
+            });
+        },
+        auth: {
+            mode: 'try',
+            strategy: 'session'
+        },
+        plugins: {
+            'hapi-auth-cookie': {
+                redirectTo: false
+            }
         }
     },
 
@@ -93,31 +177,29 @@ users = {
     */
     profile: {
         handler: function(request, reply) {
-
+            return reply.view('user/profile', request.auth.credentials);
         },
-        auth: {
-            mode: 'try',
-            strategy: 'session'
-        },
-        plugins: {
-            'hapi-auth-cookie': {
-                redirectTo: '/login'
-            }
-        }
+        auth: 'session'
     },
 
     /**
     * @returns User
     */
-    update: function() {
-
+    update: {
+        handler: function(request, reply) {
+            return reply.view('404');
+        },
+        auth: 'session'
     },
 
     /**
     * @returns
     */
-    delete: function() {
-
+    delete: {
+        handler: function(request, reply) {
+            return reply.view('404');
+        },
+        auth: 'session'
     }
 };
 
