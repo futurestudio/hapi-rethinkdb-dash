@@ -5,7 +5,7 @@ module.exports = {
             // Render the view with the custom greeting
             var context = {
                 title: 'This is Index!',
-                message: 'Hello, World. You crazy handlebars layout',
+                message: 'Hello, World. You crazy handlebars layout'
             };
 
             return reply.view('index', context);

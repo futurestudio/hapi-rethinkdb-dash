@@ -16,13 +16,13 @@ server.views(config.hapi.options.views);
 require('./server/config/plugins')(server);
 
 // Require the routes and pass the server object.
-var baseRoutes = require('./server/routes/base')(server);
-var userRoutes = require('./server/routes/user')(server);
+var baseRoutes = require('./server/routes/base');
+var userRoutes = require('./server/routes/user');
 server.route(baseRoutes);
 server.route(userRoutes);
 
-//Start the server
+// Start the server
 server.start(function() {
-    //Log to the console the host and port info
+    // Log to the console the host and port info
     console.log('Server started at: ' + server.info.uri);
 });

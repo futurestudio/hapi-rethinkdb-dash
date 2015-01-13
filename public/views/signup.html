@@ -1,17 +1,25 @@
 <div class="row vertical-offset-100">
 	<div class="col-md-4 col-md-offset-4">
+		{{#if errormessage}}
+		  	<div class="alert alert-danger" role="alert">
+		    	{{errormessage}}
+		 	</div>
+		{{/if}}
+
 		<div class="panel panel-default">
 		  	<div class="panel-heading">
-		    	<h3 class="panel-title">Please sign in</h3>
-		 	</div>
+		    	<h3 class="panel-title">Thanks for signing up</h3>
+			</div>
 		  	<div class="panel-body">
 		    	<form accept-charset="UTF-8" role="form" method="POST" action="/signup">
                 <fieldset>
 		    	  	<div class="form-group">
-		    		    <input class="form-control" placeholder="E-mail" name="email" type="text">
+					    <label for="email">Email address</label>
+		    		    <input class="form-control" placeholder="E-mail" name="email" id="email" type="text">
 		    		</div>
 		    		<div class="form-group">
-		    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
+					    <label for="password">Password (at least 6 Chars)</label>
+		    			<input class="form-control" placeholder="Password" name="password" id="password" type="password" value="">
 		    		</div>
 		    		<div class="form-group">
 		    			<p>You agree to our <a href='#'>Terms of Use</a> when clicking on <b>Sign up</b></p>

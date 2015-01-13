@@ -1,2 +1,34 @@
-<h1>Profile View</h1>
-<p>Welcome back: <b>{{email}}</b></p>
+<div class="row vertical-offset-100">
+	<div class="col-sm-8">
+
+        <h1>Profile View</h1>
+        <p>Welcome back: <b>{{email}}</b></p>
+
+
+    	<div class="panel panel-default">
+    	  	<div class="panel-heading">
+    	    	<h3 class="panel-title">Your data</h3>
+    	 	</div>
+    	  	<div class="panel-body">
+    	    	<form accept-charset="UTF-8" role="form" method="PUT" action="/profile">
+                <fieldset>
+    	    	  	<div class="form-group">
+    				    <label for="email">Email address</label>
+    	    		    <input class="form-control" placeholder="E-mail or Username" name="email_username" id="email" type="text" value={{email}}>
+    	    		</div>
+    	    		<div class="form-group">
+    				    <label for="firstname">First name</label>
+    	    			<input class="form-control" placeholder="First name" name="firstname" id="firstname" type="text">
+    	    		</div>
+    	    		<div class="form-group">
+    				    <label for="lastname">Last name</label>
+    	    			<input class="form-control" placeholder="Last name" name="lastname" id="lastname" type="text">
+    	    		</div>
+    	    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Update">
+    	    	</fieldset>
+    	      	</form>
+    	    </div>
+    	</div>
+
+	</div>
+</div>

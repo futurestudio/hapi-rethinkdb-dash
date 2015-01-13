@@ -1,10 +1,11 @@
 <div class="row vertical-offset-100">
 	<div class="col-md-4 col-md-offset-4">
-			{{#if errormessage}}
-			  	<div class="alert alert-danger" role="alert">
-			    	{{errormessage}}
-			 	</div>
-			{{/if}}
+		{{#if errormessage}}
+		  	<div class="alert alert-danger" role="alert">
+		    	{{errormessage}}
+		 	</div>
+		{{/if}}
+
 		<div class="panel panel-default">
 		  	<div class="panel-heading">
 		    	<h3 class="panel-title">Please sign in</h3>
@@ -13,10 +14,12 @@
 		    	<form accept-charset="UTF-8" role="form" method="POST" action="/login">
                 <fieldset>
 		    	  	<div class="form-group">
-		    		    <input class="form-control" placeholder="E-mail or Username" name="email_username" type="text">
+						<label for="email">Email address</label>
+						<input class="form-control" placeholder="E-mail or Username" name="email_username" id="email" type="text">
 		    		</div>
 		    		<div class="form-group">
-		    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
+						<label for="password">Password</label>
+						<input class="form-control" placeholder="Password" name="password" id="password" type="password" value="">
 		    		</div>
 		    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
 		    	</fieldset>
