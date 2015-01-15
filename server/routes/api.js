@@ -9,23 +9,26 @@ routes = function(server) {
     var routeTable = [
         {
             method: 'GET',
-            path: '/users',
-            config: controller.users.find
-        },
-        {
-            method: 'GET',
             path: '/users/{user_id}',
-            config: controller.users.findById
+            config: {
+                handler: function(request, reply) {
+                    return api.users.findById(request.params.user_id).then(function (data) {
+                        if (_.isEmpty(data.output)) {
+                            request.auth.session.set(data);
+                            return reply.redirect('/profile');
+                        }
+
+                        console.log(data);
+
+                        return reply.view('signup', { errormessage: data.output.payload.message });
+                    });
+                }
+            }
         },
         {
             method: 'POST',
             path: '/users',
             config: controller.users.create
-        },
-        {
-            method: 'PUT',
-            path: '/users',
-            config: controller.users.update
         },
         {
             method: 'GET',

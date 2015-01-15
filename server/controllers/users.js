@@ -96,8 +96,6 @@ users = {
                     return reply.redirect('/profile');
                 }
 
-                console.logout(data);
-
                 return reply.view('signup', { errormessage: data.output.payload.message });
             });
         }
@@ -187,7 +185,16 @@ users = {
     */
     update: {
         handler: function(request, reply) {
-            return reply.view('404');
+            var user = request.auth.credentials;
+
+            return api.users.update(user, request.payload).then(function (data) {
+                if (_.isEmpty(data.output)) {
+                    request.auth.session.set(data);
+                    return reply.redirect('/profile');
+                }
+
+                return reply.redirect('/profile', { errormessage: data.output.payload.message });
+            });
         },
         auth: 'session'
     },

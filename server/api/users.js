@@ -155,8 +155,8 @@ users = {
     /**
      * @returns User
      */
-    update: function() {
-
+    update: function(user, object) {
+        return Boom.notImplemented('Method not implemented');
     },
 
     /**
