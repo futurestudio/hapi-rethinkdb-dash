@@ -33,6 +33,11 @@ routes = function() {
             config: controller.users.showLogin
         },
         {
+            method: 'POST',
+            path: '/login',
+            config: controller.users.login
+        },
+        {
             method: 'GET',
             path: '/signup',
             config: controller.users.showSignup
@@ -41,11 +46,6 @@ routes = function() {
             method: 'POST',
             path: '/signup',
             config: controller.users.signup
-        },
-        {
-            method: 'POST',
-            path: '/login',
-            config: controller.users.login
         },
         {
             method: 'GET',

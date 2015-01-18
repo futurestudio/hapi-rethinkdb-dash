@@ -4,6 +4,7 @@ var _                   = require('lodash'),
     validator           = require('validator'),
     User                = require('../models/user'),
     utils               = require('./utils'),
+    that                = this,
     users;
 
 
@@ -155,8 +156,36 @@ users = {
     /**
      * @returns User
      */
-    update: function(user, object) {
-        return Boom.notImplemented('Method not implemented');
+    update: function(user, body) {
+        return utils.checkObject(body).then(function(newData) {
+            return User.filter({email: user.email}).run().then(function(foundUsers) {
+                if (_.isEmpty(foundUsers)) {
+                    return when.reject(Boom.notFound('User not found.'));
+                } else {
+                    var user = _.first(foundUsers);
+
+                    if (user.firstname !== newData.firstname) {
+                        user.firstname = newData.firstname;
+                    }
+
+                    if (user.lastname !== newData.lastname) {
+                        user.lastname = newData.lastname;
+                    }
+
+                    return user.save().then(function(update) {
+                        return update;
+                    }).error(function (error) {
+                        if (error) {
+                            return error;
+                        }
+
+                        return when.reject(Boom.badImplementation('An error occured while creating the user.'));
+                    });
+                }
+            });
+        }).catch(function(error) {
+            return error;
+        });
     },
 
     /**

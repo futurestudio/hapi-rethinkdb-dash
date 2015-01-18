@@ -5,11 +5,18 @@ module.exports = {
             // Render the view with the custom greeting
             var context = {
                 title: 'This is Index!',
-                message: 'Hello, World. You crazy handlebars layout'
+                message: 'Hello, World. You crazy handlebars layout',
+                user: request.auth.credentials
             };
 
+            console.log(request.auth.credentials);
+
             return reply.view('index', context);
-        }
+        },
+        auth: {
+            mode: 'try',
+            strategy: 'session'
+        },
     },
     about: {
         handler: function(request, reply) {

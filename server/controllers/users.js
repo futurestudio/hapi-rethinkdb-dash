@@ -175,7 +175,7 @@ users = {
     */
     profile: {
         handler: function(request, reply) {
-            return reply.view('user/profile', request.auth.credentials);
+            return reply.view('user/profile', {user: request.auth.credentials});
         },
         auth: 'session'
     },
