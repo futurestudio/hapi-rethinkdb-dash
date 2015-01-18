@@ -21,6 +21,7 @@ utils = {
         }
 
         return when.resolve(object);
-    }};
+    }
+};
 
 module.exports = utils;

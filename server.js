@@ -16,8 +16,8 @@ server.views(config.hapi.options.views);
 require('./server/config/plugins')(server);
 
 // Require the routes and pass the server object.
-var baseRoutes = require('./server/routes/base');
-var userRoutes = require('./server/routes/user');
+var baseRoutes = require('./server/routes/base')();
+var userRoutes = require('./server/routes/user')();
 server.route(baseRoutes);
 server.route(userRoutes);
 

@@ -87,7 +87,7 @@ users = {
             }
 
             return Boom.notFound('No user registered with provided credentials.');
-        }).error(function(e) {
+        }).error(function(error) {
             return Boom.badImplementation('An error occured while reading user data.');
         });
     },

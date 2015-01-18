@@ -1,16 +1,17 @@
-<div class="row vertical-offset-100">
-	<div class="col-sm-8">
+<div class="row">
+	<div class="col-sm-6">
 
         <h1>Profile View</h1>
         <p>Welcome back: <b>{{email}}</b></p>
 
+		<hr>
 
     	<div class="panel panel-default">
     	  	<div class="panel-heading">
     	    	<h3 class="panel-title">Your data</h3>
     	 	</div>
     	  	<div class="panel-body">
-    	    	<form accept-charset="UTF-8" role="form" method="PUT" action="/profile">
+    	    	<form accept-charset="UTF-8" role="form" method="POST" action="/profile">
                 <fieldset>
     	    	  	<div class="form-group">
     				    <label for="email">Email address</label>
@@ -24,7 +25,7 @@
     				    <label for="lastname">Last name</label>
     	    			<input class="form-control" placeholder="Last name" name="lastname" id="lastname" type="text">
     	    		</div>
-    	    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Update">
+    	    		<input class="btn btn-success" type="submit" value="Update">
     	    	</fieldset>
     	      	</form>
     	    </div>
