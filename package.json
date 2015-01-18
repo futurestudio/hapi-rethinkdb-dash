@@ -15,7 +15,7 @@
     "lodash": "~2.4.1",
     "passport": "~0.2.1",
     "require-directory": "~2.0.0",
-    "thinky": "~1.15.7",
+    "thinky": "~1.15.9",
     "when": "~3.6.4"
   },
   "devDependencies": {
