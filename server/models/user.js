@@ -10,14 +10,8 @@ var dbconfig                = require(__dirname + '/../config/database')(process
 
 User = thinky.createModel("User", {
     id: { _type: String, default: r.uuid()},
-    first_name: String,
-    last_name: String,
-    full_name: {
-        _type: "virtual",
-        default: function() {
-            return this.firstName + " " + this.lastName;
-        }
-    },
+    name: String,
+    url: String,
     email: String,
     email_verification: {_type: String, default: r.uuid()},
     password: String,

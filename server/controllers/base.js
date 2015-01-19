@@ -9,8 +9,6 @@ module.exports = {
                 user: request.auth.credentials
             };
 
-            console.log(request.auth.credentials);
-
             return reply.view('index', context);
         },
         auth: {

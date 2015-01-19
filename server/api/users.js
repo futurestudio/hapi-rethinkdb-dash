@@ -164,12 +164,12 @@ users = {
                 } else {
                     var user = _.first(foundUsers);
 
-                    if (user.firstname !== newData.firstname) {
-                        user.firstname = newData.firstname;
+                    if (user.name !== newData.name) {
+                        user.name = newData.name;
                     }
 
-                    if (user.lastname !== newData.lastname) {
-                        user.lastname = newData.lastname;
+                    if (user.url !== newData.url) {
+                        user.url = newData.url;
                     }
 
                     return user.save().then(function(update) {

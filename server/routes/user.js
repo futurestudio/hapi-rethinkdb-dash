@@ -61,6 +61,16 @@ routes = function() {
             method: 'POST',
             path: '/profile',
             config: controller.users.update
+        },
+        {
+            method: 'GET',
+            path: '/profile/change-password',
+            config: controller.users.showChangePassword
+        },
+        {
+            method: 'POST',
+            path: '/profile/change-password',
+            config: controller.users.changePassword
         }
     ];
 

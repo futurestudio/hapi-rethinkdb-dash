@@ -181,6 +181,28 @@ users = {
     },
 
     /**
+    *
+    * @returns User
+    */
+    showChangePassword: {
+        handler: function(request, reply) {
+            return reply.view('user/change-password', {user: request.auth.credentials});
+        },
+        auth: 'session'
+    },
+
+    /**
+    *
+    * @returns User
+    */
+    changePassword: {
+        handler: function(request, reply) {
+            return reply.view('user/change-password', {user: request.auth.credentials});
+        },
+        auth: 'session'
+    },
+
+    /**
     * @returns User
     */
     update: {

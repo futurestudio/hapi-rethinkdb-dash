@@ -14,7 +14,7 @@ module.exports = {
                 layoutPath: views + '/layout',
                 layout: 'default',
                 helpersPath: views + '/helpers',
-                partialsPath: views
+                partialsPath: views + '/partials'
             }
         }
     }
