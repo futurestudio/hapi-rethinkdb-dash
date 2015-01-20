@@ -197,7 +197,17 @@ users = {
     */
     changePassword: {
         handler: function(request, reply) {
-            return reply.view('user/change-password', {user: request.auth.credentials});
+            var user = request.auth.credentials;
+
+            return api.users.changePassword(user, request.payload).then(function(data) {
+                request.auth.session.set(data);
+                return reply.redirect('/profile/change-password', { successmessage: 'Baam. Bitches!' });
+            }).catch(function(error) {
+                console.log('error');
+                console.log(error);
+                console.log(error.output.payload.message);
+                return reply.view('user/change-password', { errormessage: error.output.payload.message });
+            });
         },
         auth: 'session'
     },

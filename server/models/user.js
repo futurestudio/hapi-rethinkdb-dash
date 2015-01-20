@@ -10,6 +10,7 @@ var dbconfig                = require(__dirname + '/../config/database')(process
 
 User = thinky.createModel("User", {
     id: { _type: String, default: r.uuid()},
+    username: String,
     name: String,
     url: String,
     email: String,
@@ -23,9 +24,13 @@ User = thinky.createModel("User", {
     updated_at: {_type: Date, default: r.now()}
 });
 
-User.prototype.comparePassword = function(candidatePassword) {
-    bcrypt.compare(candidatePassword, this.password).then(function(isMatch) {
-        return isMatch;
+User._methods.comparePassword = function(candidatePassword) {
+    var user = this;
+
+    return bcrypt.compare(candidatePassword, user.password).then(function(isMatch) {
+        return when.promise(function(resolve, reject, notify) {
+            resolve(isMatch);
+        });
     }).catch(function(error) {
         return error;
     });

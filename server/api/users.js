@@ -191,6 +191,62 @@ users = {
     /**
      * @returns
      */
+    changePassword: function(user, body) {
+        return utils.checkObject(body).then(function(data) {
+            if (_.isEmpty(data.old_password)) {
+                return when.reject(Boom.badRequest('Old password required.'));
+            }
+
+            if (_.isEmpty(data.new_password)) {
+                return when.reject(Boom.badRequest('New password required.'));
+            }
+
+            if (_.isEmpty(data.confirm_new_password)) {
+                return when.reject(Boom.badRequest('Confirm new password required.'));
+            }
+
+            if ( ! _.isEqual(data.new_password, data.confirm_new_password)) {
+                return when.reject(Boom.badRequest('New password does not equal the confirmation password.'));
+            }
+
+            if ( ! validator.isLength(data.new_password, 6)) {
+                return when.reject(Boom.badRequest('New password must be at least 6 characters.'));
+            }
+
+            return User.filter({email: user.email}).run().then(function(foundUsers) {
+                if (_.isEmpty(foundUsers)) {
+                    return when.reject(Boom.notFound('No user found with given credentials.'));
+                } else {
+                    return when.resolve(_.first(foundUsers));
+                }
+            });
+
+        }).then(function(user) {
+            return user.comparePassword(body.old_password).then(function(isMatch) {
+                if (isMatch) {
+                    user.password = body.new_password;
+
+                    return user.generatePassword().then(function(user) {
+                        return when.resolve(user);
+                    });
+                } else {
+                    return when.reject(Boom.badRequest('Old password is wrong.'));
+                }
+            });
+        }).then(function(user) {
+            return user.save().then(function(doc) {
+                return when.resolve(doc);
+            }).catch(function(error) {
+                return when.reject(error);
+            });
+        }).catch(function(error) {
+            return when.reject(error);
+        });
+    },
+
+    /**
+     * @returns
+     */
     delete: function() {
 
     }
