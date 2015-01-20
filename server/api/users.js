@@ -158,33 +158,31 @@ users = {
      */
     update: function(user, body) {
         return utils.checkObject(body).then(function(newData) {
+            console.log(user);
+            console.log(newData);
+
             return User.filter({email: user.email}).run().then(function(foundUsers) {
                 if (_.isEmpty(foundUsers)) {
                     return when.reject(Boom.notFound('User not found.'));
                 } else {
-                    var user = _.first(foundUsers);
-
-                    if (user.name !== newData.name) {
-                        user.name = newData.name;
-                    }
-
-                    if (user.url !== newData.url) {
-                        user.url = newData.url;
-                    }
-
-                    return user.save().then(function(update) {
-                        return update;
-                    }).error(function (error) {
-                        if (error) {
-                            return error;
-                        }
-
-                        return when.reject(Boom.badImplementation('An error occured while creating the user.'));
-                    });
+                    return when.resolve(_.first(foundUsers));
                 }
             });
+        }).then(function(user) {
+            if ( ! _.isEqual(user.name, body.name)) {
+                console.log('name is different');
+                user.name = body.name;
+            }
+
+            if ( ! _.isEqual(user.url, body.url)) {
+                user.url = body.url;
+            }
+
+            return user.save().then(function(doc) {
+                return when.resolve(doc);
+            });
         }).catch(function(error) {
-            return error;
+            return when.reject(error);
         });
     },
 
@@ -236,8 +234,6 @@ users = {
         }).then(function(user) {
             return user.save().then(function(doc) {
                 return when.resolve(doc);
-            }).catch(function(error) {
-                return when.reject(error);
             });
         }).catch(function(error) {
             return when.reject(error);

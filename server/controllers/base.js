@@ -15,6 +15,11 @@ module.exports = {
             mode: 'try',
             strategy: 'session'
         },
+        plugins: {
+            'hapi-auth-cookie': {
+                redirectTo: false
+            }
+        }
     },
     about: {
         handler: function(request, reply) {
