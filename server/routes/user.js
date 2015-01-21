@@ -3,30 +3,34 @@ var requireDirectory = require('require-directory'),
 
 routes = function() {
     // bootstrap your controllers so you dont have to load them individually. This loads them all into the controller name space. https://github.com/troygoode/node-require-directory
-    var controller = requireDirectory(module, __dirname + '/../controllers');
+    var controller  = requireDirectory(module, __dirname + '/../controllers'),
+        api         = requireDirectory(module, __dirname + '/../api');
 
     // array of routes for Hapi
     var routeTable = [
-        // {
-        //     method: 'GET',
-        //     path: '/users',
-        //     config: controller.users.find
-        // },
-        // {
-        //     method: 'GET',
-        //     path: '/users/{user_id}',
-        //     config: controller.users.findById
-        // },
-        // {
-        //     method: 'POST',
-        //     path: '/users',
-        //     config: controller.users.create
-        // },
-        // {
-        //     method: 'PUT',
-        //     path: '/users',
-        //     config: controller.users.update
-        // },
+        // API routes
+        {
+            method: 'GET',
+            path: '/api/users',
+            config: api.users.find
+        },
+        {
+            method: 'GET',
+            path: '/api/users/{user_id}',
+            config: api.users.findById
+        },
+        {
+            method: 'POST',
+            path: '/api/users',
+            config: api.users.create
+        },
+        {
+            method: 'PUT',
+            path: '/api/users',
+            config: api.users.update
+        },
+
+        // web routes
         {
             method: 'GET',
             path: '/login',

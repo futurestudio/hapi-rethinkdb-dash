@@ -1,4 +1,4 @@
-var api                 = require('../api'),
+var core                 = require('../core'),
     _                   = require('lodash'),
     users;
 
@@ -12,7 +12,7 @@ users = {
     */
     find: {
         handler: function(request, reply) {
-            return api.users.find().then(function(data) {
+            return core.users.find().then(function(data) {
                 return reply(data);
             });
         }
@@ -25,7 +25,7 @@ users = {
     findById: {
         handler: function(request, reply) {
             var userId = request.params.user_id;
-            return api.users.findById(userId).then(function (data) {
+            return core.users.findById(userId).then(function (data) {
                 return reply(data);
             });
         }
@@ -38,7 +38,7 @@ users = {
     findByEmail: {
         handler: function(request, reply) {
             var email = request.payload.email;
-            return api.users.findByEmail(email).then(function (data) {
+            return core.users.findByEmail(email).then(function (data) {
                 return reply(data);
             });
         }
@@ -49,7 +49,7 @@ users = {
     */
     create: {
         handler: function(request, reply) {
-            return api.users.create(request.payload).then(function (data) {
+            return core.users.create(request.payload).then(function (data) {
                 if (_.isEmpty(data.output)) {
                     return reply(data).code(201);
                 }
@@ -90,7 +90,7 @@ users = {
                 return reply.redirect('/profile');
             }
 
-            return api.users.create(request.payload).then(function (data) {
+            return core.users.create(request.payload).then(function (data) {
                 if (_.isEmpty(data.output)) {
                     request.auth.session.set(data);
                     return reply.redirect('/profile');
@@ -137,7 +137,7 @@ users = {
                 password: request.payload.password
             };
 
-            return api.users.login(data).then(function (data) {
+            return core.users.login(data).then(function (data) {
                 if (_.isEmpty(data.output)) {
                     request.auth.session.set(data);
                     return reply.redirect('/profile');
@@ -199,7 +199,7 @@ users = {
         handler: function(request, reply) {
             var user = request.auth.credentials;
 
-            return api.users.changePassword(user, request.payload).then(function(data) {
+            return core.users.changePassword(user, request.payload).then(function(data) {
                 request.auth.session.set(data);
                 return reply.redirect('/profile/change-password', { successmessage: 'Baam. Bitches!' });
             }).catch(function(error) {
@@ -219,7 +219,7 @@ users = {
         handler: function(request, reply) {
             var user = request.auth.credentials;
 
-            return api.users.update(user, request.payload).then(function (data) {
+            return core.users.update(user, request.payload).then(function (data) {
                 if (_.isEmpty(data.output)) {
                     request.auth.session.set(data);
                     return reply.redirect('/profile');
