@@ -158,9 +158,6 @@ users = {
      */
     update: function(user, body) {
         return utils.checkObject(body).then(function(newData) {
-            console.log(user);
-            console.log(newData);
-
             return User.filter({email: user.email}).run().then(function(foundUsers) {
                 if (_.isEmpty(foundUsers)) {
                     return when.reject(Boom.notFound('User not found.'));
@@ -170,7 +167,6 @@ users = {
             });
         }).then(function(user) {
             if ( ! _.isEqual(user.name, body.name)) {
-                console.log('name is different');
                 user.name = body.name;
             }
 
