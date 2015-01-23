@@ -70,6 +70,14 @@ users = {
         }
     },
 
+    /**
+    * @returns User
+    */
+    delete: {
+        handler: function(request, reply) {
+            return reply().statusCode(501);
+        }
+    }
 };
 
 module.exports = users;

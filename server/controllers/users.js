@@ -87,7 +87,7 @@ users = {
                 request.auth.session.set(data);
                 return reply.redirect('/profile');
             }).catch(function(error) {
-                return reply.view('login', { errormessage: data.output.payload.message });
+                return reply.view('login', { errormessage: error.output.payload.message });
             });
         },
         auth: {
@@ -167,7 +167,7 @@ users = {
                 request.auth.session.set(data);
                 return reply.redirect('/profile');
             }).catch(function(error) {
-                return reply.redirect('/profile', { errormessage: data.output.payload.message });
+                return reply.redirect('/profile', { errormessage: error.output.payload.message });
             });
         },
         auth: 'session'
@@ -178,7 +178,14 @@ users = {
     */
     delete: {
         handler: function(request, reply) {
-            return reply.view('404');
+            var user = request.auth.credentials;
+
+            return core.users.delete(user).then(function(data) {
+                request.auth.session.clear();
+                return reply.view('signup', {successmessage : data.message});
+            }).catch(function(error) {
+                return reply.view('user/change-password', { errormessage: error.output.payload.message });
+            });
         },
         auth: 'session'
     }

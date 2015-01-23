@@ -212,7 +212,6 @@ users = {
                     return when.resolve(_.first(foundUsers));
                 }
             });
-
         }).then(function(user) {
             return user.comparePassword(body.old_password).then(function(isMatch) {
                 if (isMatch) {
@@ -237,8 +236,22 @@ users = {
     /**
      * @returns
      */
-    delete: function() {
-
+    delete: function(user) {
+        return utils.checkObject(user).then(function(data) {
+            return User.filter({email: data.email}).run().then(function(foundUsers) {
+                if (_.isEmpty(foundUsers)) {
+                    return when.reject(Boom.notFound('No user found with given credentials.'));
+                } else {
+                    return when.resolve(_.first(foundUsers));
+                }
+            });
+        }).then(function(user) {
+            return User.delete().run().then(function(doc) {
+                return when.resolve({ message: 'Your account has been deleted from our database.'});
+            });
+        }).catch(function(error) {
+            return when.reject(error);
+        });
     }
 };
 

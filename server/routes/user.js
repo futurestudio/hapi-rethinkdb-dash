@@ -75,7 +75,13 @@ routes = function() {
             method: 'POST',
             path: '/profile/change-password',
             config: controller.users.changePassword
+        },
+        {
+            method: 'POST',
+            path: '/profile/delete-account',
+            config: controller.users.delete
         }
+
     ];
 
     return routeTable;
