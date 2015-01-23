@@ -42,13 +42,10 @@ describe('User API methods: CRUD', function() {
 
     it('Should not create a second user with the same email address', function(done) {
         api.users.create(user).then(function(result) {
-            assert(result);
-            assert(result.output);
-            assert(result.output.statusCode);
-            assert.equal(result.output.statusCode, 400);
-            done();
+            done(result);
         }).catch(function(error) {
-            done(error);
+            assert(error);
+            done();
         });
     });
 
@@ -58,13 +55,10 @@ describe('User API methods: CRUD', function() {
         };
 
         api.users.create(u).then(function(result) {
-            assert(result);
-            assert(result.output);
-            assert(result.output.statusCode);
-            assert.equal(result.output.statusCode, 400);
-            done();
+            done(result);
         }).catch(function(error) {
-            done(error);
+            assert(error);
+            done();
         });
     });
 
@@ -74,13 +68,10 @@ describe('User API methods: CRUD', function() {
         };
 
         api.users.create(u).then(function(result) {
-            assert(result);
-            assert(result.output);
-            assert(result.output.statusCode);
-            assert.equal(result.output.statusCode, 400);
-            done();
+            done(result);
         }).catch(function(error) {
-            done(error);
+            assert(error);
+            done();
         });
     });
 
@@ -136,7 +127,7 @@ describe('User API methods: CRUD', function() {
         };
 
         api.users.changePassword(user, data).then(function(result) {
-            done();
+            done(result);
         }).catch(function(error) {
             assert(error);
             done();
@@ -151,7 +142,7 @@ describe('User API methods: CRUD', function() {
         };
 
         api.users.changePassword(user, data).then(function(result) {
-            done();
+            done(result);
         }).catch(function(error) {
             assert(error);
             done();

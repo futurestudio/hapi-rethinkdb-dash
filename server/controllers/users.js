@@ -8,58 +8,6 @@ var core                 = require('../core'),
 */
 users = {
     /**
-    *
-    */
-    find: {
-        handler: function(request, reply) {
-            return core.users.find().then(function(data) {
-                return reply(data);
-            });
-        }
-    },
-
-    /**
-    *
-    * @returns User
-    */
-    findById: {
-        handler: function(request, reply) {
-            var userId = request.params.user_id;
-            return core.users.findById(userId).then(function (data) {
-                return reply(data);
-            });
-        }
-    },
-
-    /**
-    *
-    * @returns User
-    */
-    findByEmail: {
-        handler: function(request, reply) {
-            var email = request.payload.email;
-            return core.users.findByEmail(email).then(function (data) {
-                return reply(data);
-            });
-        }
-    },
-
-    /**
-    * @returns User
-    */
-    create: {
-        handler: function(request, reply) {
-            return core.users.create(request.payload).then(function (data) {
-                if (_.isEmpty(data.output)) {
-                    return reply(data).code(201);
-                }
-
-                return reply(data);
-            });
-        }
-    },
-
-    /**
     * @returns User
     */
     showSignup: {
@@ -91,12 +39,10 @@ users = {
             }
 
             return core.users.create(request.payload).then(function (data) {
-                if (_.isEmpty(data.output)) {
-                    request.auth.session.set(data);
-                    return reply.redirect('/profile');
-                }
-
-                return reply.view('signup', { errormessage: data.output.payload.message });
+                request.auth.session.set(data);
+                return reply.redirect('/profile');
+            }).catch(function(error) {
+                return reply.view('signup', { errormessage: error.output.payload.message });
             });
         }
     },
@@ -138,11 +84,9 @@ users = {
             };
 
             return core.users.login(data).then(function (data) {
-                if (_.isEmpty(data.output)) {
-                    request.auth.session.set(data);
-                    return reply.redirect('/profile');
-                }
-
+                request.auth.session.set(data);
+                return reply.redirect('/profile');
+            }).catch(function(error) {
                 return reply.view('login', { errormessage: data.output.payload.message });
             });
         },
@@ -220,11 +164,9 @@ users = {
             var user = request.auth.credentials;
 
             return core.users.update(user, request.payload).then(function (data) {
-                if (_.isEmpty(data.output)) {
-                    request.auth.session.set(data);
-                    return reply.redirect('/profile');
-                }
-
+                request.auth.session.set(data);
+                return reply.redirect('/profile');
+            }).catch(function(error) {
                 return reply.redirect('/profile', { errormessage: data.output.payload.message });
             });
         },

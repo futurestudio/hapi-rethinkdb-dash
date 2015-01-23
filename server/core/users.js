@@ -111,24 +111,22 @@ users = {
             user = new User(userdata);
 
             return user.generatePassword().then(function(user) {
+                return when.resolve(user);
+            }).then(function(user) {
                 return User.filter({email: user.email}).run().then(function(foundUsers) {
-                    if (_.isEmpty(foundUsers)) {
-                        return user.save().then(function (doc) {
-                            return doc;
-                        }).error(function (error) {
-                            if (error) {
-                                return when.reject(error);
-                            }
-
-                            return when.reject(Boom.badImplementation('An error occured while creating the user.'));
-                        });
-                    } else {
-                        return when.reject(Boom.badRequest('E-Mail address is already registered.'));
-                    }
+                    return when.resolve(foundUsers);
                 });
+            }).then(function(users) {
+                if (_.isEmpty(users)) {
+                    return user.save().then(function(doc) {
+                        return when.resolve(doc);
+                    });
+                } else {
+                    return when.reject(Boom.conflict('E-Mail address is already registered.'));
+                }
             });
         }).catch(function (error) {
-            return error;
+            return when.reject(error);
         });
     },
 
