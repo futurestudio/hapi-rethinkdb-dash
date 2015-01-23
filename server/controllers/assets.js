@@ -1,4 +1,4 @@
-// This is the assets controller. Goal is to serve css, js, partials, images, or bower packages.
+// The assets controller serves css, js, images
 module.exports = {
     images: {
         handler: {

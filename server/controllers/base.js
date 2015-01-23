@@ -21,11 +21,6 @@ module.exports = {
             }
         }
     },
-    about: {
-        handler: function(request, reply) {
-            return reply.view('about', { title: 'This is the example about page' });
-        }
-    },
     missing: {
         handler: function(request, reply) {
             return reply.view('404', {

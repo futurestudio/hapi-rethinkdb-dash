@@ -14,11 +14,6 @@ routes = function() {
         },
         {
             method: 'GET',
-            path: '/about',
-            config: controller.base.about
-        },
-        {
-            method: 'GET',
             path: '/{path*}',
             config: controller.base.missing
         },
