@@ -2,7 +2,7 @@ var assert              = require('assert'),
     config              = require('../server/config/database')('test'),
     thinky              = require('thinky')(config),
     r                   = thinky.r,
-    api                 = require('../server/api'),
+    api                 = require('../server/core'),
     User                = require('../server/models/user');
 
 
