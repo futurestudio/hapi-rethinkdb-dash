@@ -123,7 +123,7 @@ users = {
                             return when.reject(Boom.badImplementation('An error occured while creating the user.'));
                         });
                     } else {
-                        return when.reject(Boom.badRequest('User is already registered.'));
+                        return when.reject(Boom.badRequest('E-Mail address is already registered.'));
                     }
                 });
             });
