@@ -28,11 +28,9 @@ User._methods.comparePassword = function(candidatePassword) {
     var user = this;
 
     return bcrypt.compare(candidatePassword, user.password).then(function(isMatch) {
-        return when.promise(function(resolve, reject, notify) {
-            resolve(isMatch);
-        });
+        return when.resolve(isMatch);
     }).catch(function(error) {
-        return error;
+        return when.reject(Boom.badRequest('Password is wrong.'));
     });
 };
 

@@ -1,5 +1,7 @@
 var api                 = require('../core'),
+    when                = require('when'),
     _                   = require('lodash'),
+    that                = this,
     users;
 
 
@@ -47,6 +49,19 @@ users = {
     /**
     * @returns User
     */
+    login: {
+        handler: function(request, reply) {
+            return api.users.login(request.payload).then(function (data) {
+                return reply(transformReply(data));
+            }).catch(function(error) {
+                return reply(error);
+            });
+        }
+    },
+
+    /**
+    * @returns User
+    */
     create: {
         handler: function(request, reply) {
             return api.users.create(request.payload).then(function (data) {
@@ -79,5 +94,15 @@ users = {
         }
     }
 };
+
+function transformReply(data) {
+    delete data.password;
+    delete data.password_reset_token;
+    delete data.password_reset_deadline;
+    delete data.auth_token_issued;
+    delete data.email_verification;
+
+    return data;
+}
 
 module.exports = users;

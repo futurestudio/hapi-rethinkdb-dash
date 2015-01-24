@@ -10,6 +10,11 @@ routes = function() {
     var routeTable = [
         // API routes
         {
+            method: 'POST',
+            path: '/api/login',
+            config: api.users.login
+        },
+        {
             method: 'GET',
             path: '/api/users',
             config: api.users.find

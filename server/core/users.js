@@ -33,7 +33,7 @@ users = {
     */
     findById: function(id) {
         if (_.isEmpty(id)) {
-            return Boom.badRequest('User id missing.');
+            return when.reject(Boom.badRequest('User id missing.'));
         }
 
         return User.get(id).run().then(function (user) {
@@ -41,9 +41,9 @@ users = {
                 return when.resolve(user);
             }
 
-            return Boom.notFound('No user registered with provided credentials.');
-        }).error(function(e) {
-            return Boom.badImplementation('An error occured while reading user data.');
+            return when.reject(Boom.notFound('No user registered with provided credentials.'));
+        }).error(function(error) {
+            return when.reject(error);
         });
     },
 
@@ -54,7 +54,7 @@ users = {
     */
     findByEmail: function(email) {
         if (_.isEmpty(email)) {
-            return Boom.badRequest('Email missing.');
+            return when.reject(Boom.badRequest('Email missing.'));
         }
 
         if ( ! validator.isEmail(email)) {
@@ -63,12 +63,12 @@ users = {
 
         return User.filter({email: email}).run().then(function (users) {
             if (_.isEmpty(users)) {
-                return Boom.notFound('No user registered with provided credentials.');
+                return when.reject(Boom.notFound('No user registered with provided credentials.'));
             }
 
             return when.resolve(_.first(users));
-        }).error(function(e) {
-            return Boom.badImplementation('An error occured while reading user data.');
+        }).error(function(error) {
+            return when.reject(error);
         });
     },
 
@@ -79,7 +79,7 @@ users = {
     */
     findByAuthToken: function(token) {
         if (_.isEmpty(token)) {
-            return Boom.badRequest('Token missing.');
+            return when.reject(Boom.badRequest('Token missing.'));
         }
 
         return User.filter({auth_token: token}).run().then(function (user) {
@@ -87,9 +87,34 @@ users = {
                 return when.resolve(user);
             }
 
-            return Boom.notFound('No user registered with provided credentials.');
+            return when.reject(Boom.notFound('No user registered with provided credentials.'));
         }).error(function(error) {
-            return Boom.badImplementation('An error occured while reading user data.');
+            return when.reject(error);
+        });
+    },
+
+    /**
+     * @returns User
+     */
+    login: function(body) {
+        var that = this;
+
+        return utils.checkObject(body).then(function(userdata) {
+            if ( ! validator.isEmail(userdata.email)) {
+                return when.reject(Boom.badRequest('Email address missing.'));
+            }
+
+            if ( ! validator.isLength(userdata.password, 6)) {
+                return when.reject(Boom.badRequest('Password missing.'));
+            }
+
+            return that.findByEmail(userdata.email);
+        }).then(function(user) {
+            return user.comparePassword(body.password).then(function(isMatch) {
+                return when.resolve(user);
+            });
+        }).catch(function (error) {
+            return when.reject(error);
         });
     },
 
@@ -127,27 +152,6 @@ users = {
             });
         }).catch(function (error) {
             return when.reject(error);
-        });
-    },
-
-    /**
-     * @returns User
-     */
-    login: function(user) {
-        var userApi = this;
-
-        return utils.checkObject(user).then(function(userdata) {
-            if ( ! validator.isEmail(userdata.email)) {
-                return when.reject(Boom.badRequest('Email address missing.'));
-            }
-
-            if ( ! validator.isLength(userdata.password, 6)) {
-                return when.reject(Boom.badRequest('Password missing.'));
-            }
-
-            return userApi.findByEmail(userdata.email);
-        }).catch(function (error) {
-            return error;
         });
     },
 
