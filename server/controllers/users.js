@@ -184,6 +184,7 @@ users = {
                 request.auth.session.clear();
                 return reply.view('signup', {successmessage : data.message});
             }).catch(function(error) {
+                console.log(error);
                 return reply.view('user/change-password', { errormessage: error.output.payload.message });
             });
         },

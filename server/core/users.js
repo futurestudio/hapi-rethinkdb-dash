@@ -250,8 +250,9 @@ users = {
                 }
             });
         }).then(function(user) {
-            return User.delete().run().then(function(doc) {
-                return when.resolve({ message: 'Your account has been deleted from our database.'});
+            return user.delete().then(function(doc) {
+                console.log(doc);
+                return when.resolve({ message: 'Your account has been deleted from our database.', user: doc});
             });
         }).catch(function(error) {
             return when.reject(error);
