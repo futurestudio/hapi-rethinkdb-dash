@@ -65,11 +65,9 @@ users = {
     create: {
         handler: function(request, reply) {
             return api.users.create(request.payload).then(function (data) {
-                if (_.isEmpty(data.output)) {
-                    return reply(data).code(201);
-                }
-
-                return reply(data);
+                return reply(data).code(201);
+            }).catch(function(error) {
+                return reply(error);
             });
         }
     },

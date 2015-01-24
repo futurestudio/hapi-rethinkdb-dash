@@ -15,6 +15,11 @@ routes = function() {
             config: api.users.login
         },
         {
+            method: 'POST',
+            path: '/api/users',
+            config: api.users.create
+        },
+        {
             method: 'GET',
             path: '/api/users',
             config: api.users.find
@@ -23,11 +28,6 @@ routes = function() {
             method: 'GET',
             path: '/api/users/{user_id}',
             config: api.users.findById
-        },
-        {
-            method: 'POST',
-            path: '/api/users',
-            config: api.users.create
         },
         {
             method: 'PUT',
