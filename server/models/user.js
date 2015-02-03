@@ -57,4 +57,10 @@ User._methods.generatePassword = function() {
     });
 };
 
+User._methods.generateAuthToken = function() {
+    this.auth_token = r.uuid();
+    this.auth_token_issued = r.now();
+    return when.resolve(this);
+};
+
 module.exports = User;

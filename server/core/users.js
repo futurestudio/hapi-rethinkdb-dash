@@ -229,6 +229,10 @@ users = {
                 }
             });
         }).then(function(user) {
+            return user.generateAuthToken().then(function(user) {
+                return when.resolve(user);
+            });
+        }).then(function(user) {
             return user.save().then(function(doc) {
                 return when.resolve(doc);
             });

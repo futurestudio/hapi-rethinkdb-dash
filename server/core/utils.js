@@ -17,7 +17,7 @@ utils = {
      */
      checkObject: function(object) {
         if (_.isEmpty(object)) {
-            return Boom.badRequest('No data provided');
+            return when.reject(Boom.badRequest('No data provided'));
         }
 
         return when.resolve(object);

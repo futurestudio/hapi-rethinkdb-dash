@@ -145,11 +145,8 @@ users = {
 
             return core.users.changePassword(user, request.payload).then(function(data) {
                 request.auth.session.set(data);
-                return reply.redirect('/profile/change-password', { successmessage: 'Baam. Bitches!' });
+                return reply.view('user/change-password', { successmessage: 'Password change successful.' });
             }).catch(function(error) {
-                console.log('error');
-                console.log(error);
-                console.log(error.output.payload.message);
                 return reply.view('user/change-password', { errormessage: error.output.payload.message });
             });
         },

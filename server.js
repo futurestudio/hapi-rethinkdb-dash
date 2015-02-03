@@ -7,7 +7,7 @@ var server = new hapi.Server();
 // add connection parameters
 server.connection({
     host: 'localhost',
-    port: config.port
+    port: process.env.PORT || config.port
 });
 
 server.views(config.hapi.options.views);
