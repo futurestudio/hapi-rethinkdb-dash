@@ -82,12 +82,12 @@ users = {
             return when.reject(Boom.badRequest('Token missing.'));
         }
 
-        return User.filter({auth_token: token}).run().then(function (user) {
-            if (user) {
-                return when.resolve(user);
+        return User.filter({auth_token: token}).run().then(function (users) {
+            if (_.isEmpty(users)) {
+                return when.reject(Boom.notFound('No user registered with provided credentials.'));
             }
 
-            return when.reject(Boom.notFound('No user registered with provided credentials.'));
+            return when.resolve(_.first(users));
         }).error(function(error) {
             return when.reject(error);
         });
@@ -111,7 +111,11 @@ users = {
             return that.findByEmail(userdata.email);
         }).then(function(user) {
             return user.comparePassword(body.password).then(function(isMatch) {
-                return when.resolve(user);
+                if (isMatch) {
+                    return when.resolve(user);
+                } else {
+                    return when.reject('Password not correct.');
+                }
             });
         }).catch(function (error) {
             return when.reject(error);
