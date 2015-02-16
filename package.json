@@ -11,11 +11,11 @@
     "handlebars": "~3.0.0",
     "hapi": "~8.2.0",
     "hapi-auth-cookie": "~2.0.0",
-    "validator": "~3.29.0",
     "lodash": "~3.1.0",
     "passport": "~0.2.1",
     "require-directory": "~2.0.0",
     "thinky": "~1.16.2",
+    "validator": "~3.29.0",
     "when": "~3.7.2"
   },
   "devDependencies": {
