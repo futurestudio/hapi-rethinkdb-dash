@@ -52,7 +52,7 @@ Start server
 
 Everthing went smooth? Visit
 
-    [localhost:3000](http://localhost:3000)
+    localhost:3000
 
 
 ## Tests
