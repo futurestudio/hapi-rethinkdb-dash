@@ -13,8 +13,9 @@ var _                   = require('lodash'),
 */
 users = {
     /**
-    *
-    */
+     * User users from Database
+     * @returns [{Promise(User)}] Users
+     */
     find: function() {
         return User.run().then(function (users) {
             if (users) {
@@ -23,14 +24,15 @@ users = {
 
             return Boom.notFound('No users found');
         }).error(function(error) {
-            return Boom.badImplementation('An error occured while reading user data');
+            return when.reject(Boom.badImplementation('An error occured while reading user data'));
         });
     },
 
     /**
-    *
-    * @returns User
-    */
+     * Find User by id
+     * @param {id} id
+     * @returns {Promise(User)} User
+     */
     findById: function(id) {
         if (_.isEmpty(id)) {
             return when.reject(Boom.badRequest('User id missing.'));
@@ -48,10 +50,10 @@ users = {
     },
 
     /**
-    * Find user by email
-    *
-    * @returns User
-    */
+     * Find User by email
+     * @param {email} email
+     * @returns {Promise(User)} User
+     */
     findByEmail: function(email) {
         if (_.isEmpty(email)) {
             return when.reject(Boom.badRequest('Email missing.'));
@@ -73,10 +75,10 @@ users = {
     },
 
     /**
-    * Find user by email
-    *
-    * @returns User
-    */
+     * Find User by auth token
+     * @param {token} token
+     * @returns {Promise(User)} User
+     */
     findByAuthToken: function(token) {
         if (_.isEmpty(token)) {
             return when.reject(Boom.badRequest('Token missing.'));
@@ -94,7 +96,9 @@ users = {
     },
 
     /**
-     * @returns User
+     * Delete User
+     * @param {body} user email and password
+     * @returns {Promise(User)} User
      */
     login: function(body) {
         var that = this;
@@ -123,7 +127,9 @@ users = {
     },
 
     /**
-     * @returns User
+     * Create User
+     * @param {object} user data
+     * @returns {Promise(User)} created User
      */
     create: function(object) {
         var user;
@@ -160,7 +166,9 @@ users = {
     },
 
     /**
-     * @returns User
+     * Update User
+     * @param {user, body} user, request body
+     * @returns {Promise(User)} updated User
      */
     update: function(user, body) {
         return utils.checkObject(body).then(function(newData) {
@@ -189,7 +197,9 @@ users = {
     },
 
     /**
-     * @returns
+     * Change User Password
+     * @param {user, body} user, request body
+     * @returns {Promise(User)} User
      */
     changePassword: function(user, body) {
         return utils.checkObject(body).then(function(data) {
@@ -246,9 +256,11 @@ users = {
     },
 
     /**
-     * @returns
+     * Delete User
+     * @param {user} user object
+     * @returns {Promise(User)} deleted User
      */
-    delete: function(user) {
+     delete: function(user) {
         return utils.checkObject(user).then(function(data) {
             return User.filter({email: data.email}).run().then(function(foundUsers) {
                 if (_.isEmpty(foundUsers)) {
@@ -259,7 +271,6 @@ users = {
             });
         }).then(function(user) {
             return user.delete().then(function(doc) {
-                console.log(doc);
                 return when.resolve({ message: 'Your account has been deleted from our database.', user: doc});
             });
         }).catch(function(error) {

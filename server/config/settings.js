@@ -13,7 +13,7 @@ module.exports = {
                 path: views,
                 layoutPath: views + '/layout',
                 layout: 'default',
-                helpersPath: views + '/helpers',
+                // helpersPath: views + '/helpers',
                 partialsPath: views + '/partials'
             }
         }

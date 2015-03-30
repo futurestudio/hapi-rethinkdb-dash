@@ -21,7 +21,7 @@ var plugins = function(server) {
 
     server.auth.strategy('session', 'cookie', {
         password: 'thisisasecretpassword',
-        cookie: 'hapi-rethink-boilerplate',
+        cookie: 'hapi-rethink-dash',
         redirectTo: '/login',
         isSecure: false
     });
