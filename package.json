@@ -6,7 +6,7 @@
   "dependencies": {
     "bcrypt-as-promised": "~1.0.1",
     "boom": "~2.7.0",
-    "good": "~6.0.0",
+    "good": "~6.1.0",
     "good-console": "~5.0.0",
     "handlebars": "~3.0.1",
     "hapi": "~8.4.0",
@@ -14,7 +14,7 @@
     "lodash": "~3.6.0",
     "passport": "~0.2.1",
     "require-directory": "~2.1.0",
-    "thinky": "~1.16.11",
+    "thinky": "~2.0.0",
     "validator": "~3.37.0",
     "when": "~3.7.2"
   },

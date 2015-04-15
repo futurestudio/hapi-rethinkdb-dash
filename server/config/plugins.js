@@ -3,7 +3,7 @@ var plugins = function(server) {
     var goodOptions = {
         reporters: [{
             reporter: require('good-console'),
-            args:[{ log: '*', response: '*' }]
+            events: { log: '*', response: '*' }
         }]
     };
 
