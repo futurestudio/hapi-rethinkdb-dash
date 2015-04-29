@@ -9,12 +9,13 @@ var _                   = require('lodash'),
 
 
 /**
-*
-*/
+ * User core functionality
+ */
 users = {
     /**
-     * User users from Database
-     * @returns [{Promise(User)}] Users
+     * Returns all users from database
+     *
+     * @returns     [{Promise(User)}] Users
      */
     find: function() {
         return User.run().then(function (users) {
@@ -29,9 +30,10 @@ users = {
     },
 
     /**
-     * Find User by id
-     * @param {id} id
-     * @returns {Promise(User)} User
+     * Find user by id
+     *
+     * @param       {id} user id
+     * @returns     {Promise(User)} User
      */
     findById: function(id) {
         if (_.isEmpty(id)) {
@@ -50,9 +52,10 @@ users = {
     },
 
     /**
-     * Find User by email
-     * @param {email} email
-     * @returns {Promise(User)} User
+     * Find user by email
+     *
+     * @param       {email} user email
+     * @returns     {Promise(User)} User
      */
     findByEmail: function(email) {
         if (_.isEmpty(email)) {
@@ -75,9 +78,10 @@ users = {
     },
 
     /**
-     * Find User by auth token
-     * @param {token} token
-     * @returns {Promise(User)} User
+     * Find user by auth token
+     *
+     * @param       {token} authentication token
+     * @returns     {Promise(User)} User
      */
     findByAuthToken: function(token) {
         if (_.isEmpty(token)) {
@@ -96,9 +100,10 @@ users = {
     },
 
     /**
-     * Delete User
-     * @param {body} user email and password
-     * @returns {Promise(User)} User
+     * Login user: requires email and password in the object body.
+     *
+     * @param       {body} user email and password
+     * @returns     {Promise(User)} User
      */
     login: function(body) {
         var that = this;
@@ -127,9 +132,10 @@ users = {
     },
 
     /**
-     * Create User
-     * @param {object} user data
-     * @returns {Promise(User)} created User
+     * Create user
+     *
+     * @param       {object} user data
+     * @returns     {Promise(User)} created User
      */
     create: function(object) {
         var user;
@@ -166,9 +172,10 @@ users = {
     },
 
     /**
-     * Update User
-     * @param {user, body} user, request body
-     * @returns {Promise(User)} updated User
+     * Update user
+     *
+     * @param       {user, body} user, request body
+     * @returns     {Promise(User)} updated User
      */
     update: function(user, body) {
         return utils.checkObject(body).then(function(newData) {
@@ -197,9 +204,10 @@ users = {
     },
 
     /**
-     * Change User Password
-     * @param {user, body} user, request body
-     * @returns {Promise(User)} User
+     * Change user password
+     *
+     * @param       {user, body} user, request body
+     * @returns     {Promise(User)} User
      */
     changePassword: function(user, body) {
         return utils.checkObject(body).then(function(data) {
@@ -256,9 +264,10 @@ users = {
     },
 
     /**
-     * Delete User
-     * @param {user} user object
-     * @returns {Promise(User)} deleted User
+     * Delete user
+     *
+     * @param       {user} user object
+     * @returns     {Promise(User)} deleted user
      */
      delete: function(user) {
         return utils.checkObject(user).then(function(data) {

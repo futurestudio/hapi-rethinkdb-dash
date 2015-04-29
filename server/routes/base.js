@@ -4,7 +4,9 @@ var requireDirectory = require('require-directory'),
 routes = function() {
     var controller = requireDirectory(module, __dirname + '/../controllers');
 
-    // array of routes for Hapi
+    /**
+     * Base routes for index page, images, CSS and javascript files
+     */
     var routeTable = [
         {
             method: 'GET',

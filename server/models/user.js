@@ -8,6 +8,9 @@ var dbconfig                = require(__dirname + '/../config/database')(process
     SALT_WORK_FACTOR        = 10,
     User;
 
+/**
+ * Thinky user model
+ */
 User = thinky.createModel("User", {
     id: { _type: String, default: r.uuid()},
     username: String,
@@ -24,6 +27,12 @@ User = thinky.createModel("User", {
     updated_at: {_type: Date, default: r.now()}
 });
 
+/**
+ * Add method "comparePassword" to user model
+ *
+ * This method checks whether the provided candidate password matches the
+ * user password
+ */
 User._methods.comparePassword = function(candidatePassword) {
     var user = this;
 
@@ -34,6 +43,12 @@ User._methods.comparePassword = function(candidatePassword) {
     });
 };
 
+/**
+ * Add method "generatePassword" to user model
+ *
+ * This method salts, hashes and saves the user password. Additionally, a new
+ * auth_token gets generated
+ */
 User._methods.generatePassword = function() {
     var user = this;
 
@@ -45,11 +60,11 @@ User._methods.generatePassword = function() {
             });
         });
     }).then(function(user) {
-        return bcrypt.genSalt(SALT_WORK_FACTOR).then(function(token) {
-            user.auth_token = token;
-            return when.promise(function(resolve, reject, notify) {
-                resolve(user);
-            });
+        user.auth_token = r.uuid();
+        user.auth_token_issued = r.now();
+
+        return when.promise(function(resolve, reject, notify) {
+            resolve(user);
         });
     }).catch(function(error) {
         console.log(error);
@@ -57,6 +72,11 @@ User._methods.generatePassword = function() {
     });
 };
 
+/**
+ * Add method "generateAuthToken" to user model
+ *
+ * This method generates a new auth token
+ */
 User._methods.generateAuthToken = function() {
     this.auth_token = r.uuid();
     this.auth_token_issued = r.now();

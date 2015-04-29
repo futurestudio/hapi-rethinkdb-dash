@@ -1,7 +1,9 @@
 var path                = require('path'),
     views               = path.join(__dirname, '..', '..', 'public', 'views');
 
-// defaults that you can access when you require this config.
+/**
+ * Default configuration for hapi server and various boilerplate options
+ */
 module.exports = {
     port: parseInt(process.env.PORT, 10) || 3000,
     hapi: {

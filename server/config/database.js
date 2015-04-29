@@ -1,3 +1,7 @@
+/**
+ * Database configuration file. Specify the database name and connection details
+ * for your RethinkDB instance
+ */
 module.exports = function (env) {
     if (env === 'prod' || env === 'production') {
         return {

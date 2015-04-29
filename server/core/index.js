@@ -1,5 +1,3 @@
-// # Data API
-
 var users               = require('./users'),
     when                = require('when'),
     Boom                = require('boom'),
@@ -8,14 +6,15 @@ var users               = require('./users'),
     _                   = require('lodash');
 
 /**
-* ## Public API
-*/
+ * Index file comprising the core functionality. Exports user core and
+ * additional core helper functions
+ */
 module.exports = {
     /**
-     * @returns User api
+     * @returns user core functions
      */
     users: users,
-
+    
     /**
      * Check if provided authentication token exists in database
      */
@@ -25,13 +24,9 @@ module.exports = {
         }
 
         users.findByAuthToken(object.auth_token).then(function(user) {
-            if (_.isEmpty(user.output)) {
-                return when.resolve(user);
-            }
-
-            throw new Boom.unauthorized('Authorization required');
+            return when.resolve(user);
         }).catch(function(error) {
-            return when.reject(error);
+            return when.reject(new Boom.unauthorized('Authorization required'));
         });
     }
 };

@@ -5,15 +5,14 @@ var _                   = require('lodash'),
 
 
 /**
-*
+* Core helper functions
 */
 utils = {
     /**
-     * ## Check Object
-     * Check an object passed to the API is not empty and in the correct format
+     * Check if passed object passed is not empty and in the correct format
      *
-     * @param {Object} object
-     * @returns {Promise(Object)} resolves to the original object if it checks out
+     * @param       {Object} object
+     * @returns     {Promise(Object)} resolves to the original object
      */
      checkObject: function(object) {
         if (_.isEmpty(object)) {

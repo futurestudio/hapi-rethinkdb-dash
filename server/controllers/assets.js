@@ -1,4 +1,6 @@
-// The assets controller serves css, js, images
+/**
+ * The assets controller serves css, js, images
+ */
 module.exports = {
     images: {
         handler: {

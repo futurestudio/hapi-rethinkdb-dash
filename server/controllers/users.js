@@ -4,11 +4,12 @@ var core                 = require('../core'),
 
 
 /**
-*
+* User controller: web routes related to user stuff get routed to this controller
+* Handles the session configuration and rendering of views with data
 */
 users = {
     /**
-    * @returns User
+    * Renderes signup view if not authenticated, else redirects to profile page
     */
     showSignup: {
         handler: function(request, reply) {
@@ -30,7 +31,7 @@ users = {
     },
 
     /**
-    * @returns User
+    * Renderes signup view if not authenticated, else redirects to profile page
     */
     signup: {
         handler: function(request, reply) {
@@ -48,7 +49,7 @@ users = {
     },
 
     /**
-    * @returns User
+    * Renderes login view if not authenticated, else redirects to profile page
     */
     showLogin: {
         handler: function(request, reply) {
@@ -70,7 +71,7 @@ users = {
     },
 
     /**
-    * @returns User
+    * Renderes login view if not authenticated, else redirects to profile page
     */
     login: {
         handler: function(request, reply) {
@@ -102,8 +103,7 @@ users = {
     },
 
     /**
-    *
-    * @returns User
+    * Clears the user session and performs user logout
     */
     logout: {
         handler: function(request, reply) {
@@ -114,8 +114,7 @@ users = {
     },
 
     /**
-    *
-    * @returns User
+    * Renderes profile page
     */
     profile: {
         handler: function(request, reply) {
@@ -126,7 +125,7 @@ users = {
 
     /**
     *
-    * @returns User
+    * Renderes change password page
     */
     showChangePassword: {
         handler: function(request, reply) {
@@ -136,8 +135,7 @@ users = {
     },
 
     /**
-    *
-    * @returns User
+    * Performs the change password operation
     */
     changePassword: {
         handler: function(request, reply) {
@@ -154,7 +152,7 @@ users = {
     },
 
     /**
-    * @returns User
+    * Performs the update user operation
     */
     update: {
         handler: function(request, reply) {
@@ -171,7 +169,7 @@ users = {
     },
 
     /**
-    * @returns
+    * Performs the delete user operation
     */
     delete: {
         handler: function(request, reply) {

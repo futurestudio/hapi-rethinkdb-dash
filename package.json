@@ -1,7 +1,7 @@
 {
   "name": "hapi-rethinkdb-api-boilerplate",
-  "description": "NodeJS boilerplate based on hapi, rethinkdb, handlebars",
-  "version": "0.1.0",
+  "description": "NodeJS account boilerplate based on hapi, rethinkdb, handlebars and bootstrap",
+  "version": "1.0.0",
   "author": "Marcus Pöhls <marcus@futurestud.io>",
   "dependencies": {
     "bcrypt-as-promised": "~1.0.1",
@@ -23,16 +23,16 @@
     "mocha": "~2.2.4",
     "should": "~6.0.1"
   },
-  "homepage": "http://futurestud.io",
+  "homepage": "https://futurestud.io",
   "keywords": [
-    "node, hapi, rethinkdb, boilerplate"
+    "node, hapi, rethinkdb, boilerplate, bootstrap"
   ],
   "license": "MIT",
   "main": "server.js",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://git.futurestud.io/marcus/hapi-rethinkdb-api-boilerplate.git"
+    "url": "https://github.com/fs-opensource/hapi-rethinkdb-dash.git"
   },
   "scripts": {
     "start": "node server",
