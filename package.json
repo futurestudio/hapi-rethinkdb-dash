@@ -6,17 +6,17 @@
   "dependencies": {
     "bcrypt-as-promised": "~1.0.1",
     "boom": "~2.7.1",
-    "good": "~6.1.0",
+    "good": "~6.1.2",
     "good-console": "~5.0.0",
-    "handlebars": "~3.0.1",
+    "handlebars": "~3.0.3",
     "hapi": "~8.4.0",
-    "hapi-auth-cookie": "~2.0.0",
-    "lodash": "~3.7.0",
+    "hapi-auth-cookie": "~2.2.0",
+    "lodash": "~3.8.0",
     "passport": "~0.2.1",
     "require-directory": "~2.1.0",
-    "thinky": "~2.0.1",
-    "validator": "~3.38.0",
-    "when": "~3.7.2"
+    "thinky": "~2.0.2",
+    "validator": "~3.39.0",
+    "when": "~3.7.3"
   },
   "devDependencies": {
     "istanbul": "~0.3.13",
