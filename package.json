@@ -16,7 +16,7 @@
     "require-directory": "~2.1.0",
     "thinky": "~2.0.1",
     "validator": "~3.38.0",
-    "when": "~3.7.2"
+    "when": "~3.7.3"
   },
   "devDependencies": {
     "istanbul": "~0.3.13",
