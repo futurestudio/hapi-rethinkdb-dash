@@ -1,4 +1,4 @@
-var core                 = require('../core'),
+var core                = require('../core'),
     _                   = require('lodash'),
     users;
 
@@ -169,6 +169,51 @@ users = {
     },
 
     /**
+    * Forgot password: sends an email with the new password if the user is already registered
+    */
+    showForgotPassword: {
+        handler: function(request, reply) {
+            return reply.view('forgot-password');
+        }
+    },
+
+    /**
+    * Forgot password: sends an email with the new password if the user is already registered
+    */
+    forgotPassword: {
+        handler: function(request, reply) {
+            // TODO: redirect to login if already authenticated?
+
+            return core.users.forgotPassword(request.payload).then(function(user) {
+                return reply.view('forgot-password', {successmessage: 'Email sent successfully. Check your inbox!'});
+            }).catch(function(error) {
+                return reply.view('forgot-password', { errormessage: error.output.payload.message });
+            });
+        }
+    },
+
+    showResetPassword: {
+        handler: function(request, reply) {
+            return reply.view('reset-password', {resetToken: request.params.resetToken});
+        }
+    },
+
+    resetPassword: {
+        handler: function(request, reply) {
+            // TODO: redirect to login if already authenticated?
+
+            return core.users.resetPassword(request.payload).then(function(user) {
+                request.auth.session.set(user);
+                return reply.redirect('/profile');
+
+                //return reply.view('reset-password', {successmessage: 'Password successfully changed!'});
+            }).catch(function(error) {
+                return reply.view('reset-password', { errormessage: error.output.payload.message });
+            });
+        }
+    },
+
+    /**
     * Performs the delete user operation
     */
     delete: {
@@ -179,7 +224,6 @@ users = {
                 request.auth.session.clear();
                 return reply.view('signup', {successmessage : data.message});
             }).catch(function(error) {
-                console.log(error);
                 return reply.view('user/change-password', { errormessage: error.output.payload.message });
             });
         },

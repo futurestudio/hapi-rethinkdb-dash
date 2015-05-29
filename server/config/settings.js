@@ -19,5 +19,14 @@ module.exports = {
                 partialsPath: views + '/partials'
             }
         }
-    }
+    },
+    email: {
+        service: 'Mailgun',
+        auth: {
+            user: 'username',
+            pass: 'password'
+        },
+        from: 'Dash Mailer ✔ <your@url.com>'
+    },
+    baseUrl: 'http://localhost:3000'
 };
