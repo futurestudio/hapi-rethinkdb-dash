@@ -19,5 +19,15 @@ module.exports = {
                 partialsPath: views + '/partials'
             }
         }
-    }
+    },
+    // We use Nodemailer to send emails. Check service options on http://www.nodemailer.com/
+    email: {
+        service: 'Mailgun',
+        auth: {
+            user: 'username',
+            pass: 'password'
+        },
+        from: 'Dash Mailer ✔ <your@url.com>'
+    },
+    baseUrl: 'http://localhost:3000'
 };

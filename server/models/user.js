@@ -44,8 +44,6 @@ User._methods.comparePassword = function(candidatePassword) {
 };
 
 /**
- * Add method "generatePassword" to user model
- *
  * This method salts, hashes and saves the user password. Additionally, a new
  * auth_token gets generated
  */
@@ -67,14 +65,26 @@ User._methods.generatePassword = function() {
             resolve(user);
         });
     }).catch(function(error) {
-        console.log(error);
         return when.reject(error);
     });
 };
 
 /**
- * Add method "generateAuthToken" to user model
- *
+ * This method generates a password reset token and sets the token’s deadline to t + 1h
+ */
+User._methods.generatePasswordResetToken = function() {
+    var user = this,
+        date = new Date();
+
+    return r.uuid().then(function(uuid) {
+        user.password_reset_token = uuid;
+        user.password_reset_deadline = new Date(date.setHours(date.getHours() + 1));
+
+        return when.resolve(user);
+    });
+};
+
+/**
  * This method generates a new auth token
  */
 User._methods.generateAuthToken = function() {

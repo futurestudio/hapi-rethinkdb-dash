@@ -52,6 +52,26 @@ routes = function() {
             config: controller.users.changePassword
         },
         {
+            method: 'GET',
+            path: '/forgot-password',
+            config: controller.users.showForgotPassword
+        },
+        {
+            method: 'POST',
+            path: '/forgot-password',
+            config: controller.users.forgotPassword
+        },
+        {
+            method: 'GET',
+            path: '/reset-password/{resetToken}',
+            config: controller.users.showResetPassword
+        },
+        {
+            method: 'POST',
+            path: '/reset-password',
+            config: controller.users.resetPassword
+        },
+        {
             method: 'POST',
             path: '/profile/delete-account',
             config: controller.users.delete

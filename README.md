@@ -44,6 +44,8 @@ The **database configuration** is placed in `server/config/database.js`.
 
 Currently this project does not use any handlebars helpers. That's why git deletes the `helpers` folder from within the `views` folder. Enabling helper classes requires you to uncomment the respective line in `server/config/settings.js`.
 
+The password reset functionality requires a valid mail configuration. Change the `email` and `baseUrl` settings to make things work.
+
     nano server/config/settings.js
 
 Start server

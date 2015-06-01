@@ -15,13 +15,18 @@ var cleanTables = function(done) {
 };
 
 describe('User API methods: CRUD', function() {
-    var user;
+    var user,
+        date = new Date();
+
     after(cleanTables);
 
     before(function() {
         user = {
             email: 'test@futurestud.io',
-            password: 'testpassword'
+            password: 'testpassword',
+            password_reset_token: 'resettoken',
+            password_reset_deadline: new Date(date.setHours(date.getHours() + 1))
+
         };
     });
 
@@ -161,6 +166,96 @@ describe('User API methods: CRUD', function() {
             done();
         }).catch(function(error) {
             done(error);
+        });
+    });
+
+    it('Should reset users password', function(done) {
+        var data = {
+            new_password: 'newpassword',
+            confirm_new_password: 'newpassword',
+            reset_token: user.password_reset_token
+        };
+
+        api.users.resetPassword(data).then(function(result) {
+            assert(result);
+            assert(result.password);
+            assert.equal(result.password_reset_token, undefined);
+            assert.equal(result.password_reset_deadline, undefined);
+            done();
+        }).catch(function(error) {
+            done(error);
+        });
+    });
+
+    it('Should not reset users password: wrong reset token', function(done) {
+        var data = {
+            new_password: 'newpassword',
+            confirm_new_password: 'newpassword',
+            reset_token: 'wrongResetToken'
+        };
+
+        api.users.resetPassword(data).then(function(result) {
+            done(result);
+        }).catch(function(error) {
+            assert(error);
+            done();
+        });
+    });
+
+    it('Should not reset users password: passwords don’t match', function(done) {
+        var data = {
+            new_password: 'newpassword',
+            confirm_new_password: 'anothernewpassword',
+            reset_token: user.password_reset_token
+        };
+
+        api.users.resetPassword(data).then(function(result) {
+            done(result);
+        }).catch(function(error) {
+            assert(error);
+            done();
+        });
+    });
+
+    it('Should not reset users password: reset token missing', function(done) {
+        var data = {
+            new_password: 'newpassword',
+            confirm_new_password: 'newpassword'
+        };
+
+        api.users.resetPassword(data).then(function(result) {
+            done(result);
+        }).catch(function(error) {
+            assert(error);
+            done();
+        });
+    });
+
+    it('Should not reset users password: new password missing', function(done) {
+        var data = {
+            confirm_new_password: 'newpassword',
+            reset_token: user.password_reset_token
+        };
+
+        api.users.resetPassword(data).then(function(result) {
+            done(result);
+        }).catch(function(error) {
+            assert(error);
+            done();
+        });
+    });
+
+    it('Should not reset users password: confirm password token missing', function(done) {
+        var data = {
+            new_password: 'newpassword',
+            reset_token: user.password_reset_token            
+        };
+
+        api.users.resetPassword(data).then(function(result) {
+            done(result);
+        }).catch(function(error) {
+            assert(error);
+            done();
         });
     });
 });
