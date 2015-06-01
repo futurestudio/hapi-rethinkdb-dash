@@ -372,7 +372,7 @@ users = {
             if ( ! validator.isLength(data.new_password, 6)) {
                 return when.reject(Boom.badRequest('New password must be at least 6 characters.'));
             }
-
+            
             return User.filter({password_reset_token: data.reset_token}).run().then(function(foundUsers) {
                 if (_.isEmpty(foundUsers)) {
                     return when.reject(Boom.notFound('Wrong password request token.'));
