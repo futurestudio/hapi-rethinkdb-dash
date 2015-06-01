@@ -20,6 +20,7 @@ module.exports = {
             }
         }
     },
+    // We use Nodemailer to send emails. Check service options on http://www.nodemailer.com/
     email: {
         service: 'Mailgun',
         auth: {
