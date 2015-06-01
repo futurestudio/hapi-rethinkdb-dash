@@ -24,11 +24,12 @@ Hapi-RethinkDB-Dash requires
 
 Besides the core technologies it uses the following components (this list is very likely incomplete):
 
-- [hapi](http://hapijs.com/) - Node.js Web Framework
-- [Handlebars](http://handlebarsjs.com/) - HTML Templating Engine
-- [Bcrypt](https://www.npmjs.com/package/bcrypt-nodejs) - For password encryption
-- [Twitter Bootstrap](http://getbootstrap.com/) - UI Component & Layout Library
-- [Mocha](https://www.npmjs.com/package/mocha) - node.js Testing framework
+- [hapi](http://hapijs.com/) — Node.js Web Framework
+- [RethinkDB](http://rethinkdb.com/) — Open-Source Database for the realtime web
+- [Handlebars](http://handlebarsjs.com/) — HTML Templating Engine
+- [Bcrypt](https://www.npmjs.com/package/bcrypt-nodejs) — For password encryption
+- [Twitter Bootstrap](http://getbootstrap.com/) — UI Component & Layout Library
+- [Mocha](https://www.npmjs.com/package/mocha) — node.js Testing framework
 
 
 ## Configuration & Install
