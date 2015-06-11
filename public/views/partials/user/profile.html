@@ -6,7 +6,11 @@
 	 	</div>
 	  	<div class="panel-body">
             <h1>Profile View</h1>
-            <p>Welcome back: <b>{{user.name}}</b></p>
+			{{#if user.name}}
+            	<p>Welcome back: <b>{{user.name}}</b></p>
+			{{else}}
+	            <p>Welcome back!</b></p>
+			{{/if}}
 
         	<hr>
 
