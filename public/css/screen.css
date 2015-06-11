@@ -12,10 +12,18 @@ body{
 /**
  * Adjustments
  **/
+h1, h4, h2, h3 {
+    font-weight: 700;
+}
+
+.light {
+    font-weight: 300;
+}
+
 .panel-default>.panel-heading {
     color: #161616;
     background: #fff;
-    border-color: #eee;
+    border-color: #e5e5e5;
     padding: 20px 25px;
 }
 
@@ -25,4 +33,27 @@ body{
 
 .panel-body {
     padding: 15px 25px;
+}
+
+
+.panel-footer {
+    background: #fff;
+    border-top: 2px solid #e5e5e5;
+    padding: 10px 25px;
+}
+
+.panel-footer .col-sm-4 {
+    border-right: 2px solid #e5e5e5;
+}
+
+.panel-footer .col-sm-4:last-child {
+    border: none;
+}
+.panel-footer h3, .panel-footer > p {
+    margin: 0;
+    padding: 0;
+}
+.panel-footer h3 {
+    font-size: 30px;
+    line-height: 1.5em;
 }
