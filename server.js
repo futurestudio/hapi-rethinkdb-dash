@@ -22,7 +22,11 @@ server.route(baseRoutes);
 server.route(userRoutes);
 
 // Start the server
-server.start(function() {
+server.start(function(err) {
+    if (err) {
+        throw err;
+    }
+    
     // Log to the console the host and port info
     console.log('Server started at: ' + server.info.uri);
 });
