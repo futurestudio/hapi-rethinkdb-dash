@@ -12,7 +12,7 @@ dashboard = {
     */
     showDashboard: {
         handler: function(request, reply) {
-            return reply.view('dashboard/dashboard', {dashboard: true});
+            return reply.view('dashboard/dashboard', {dashboard: true, user: request.auth.credentials});
         },
         auth: 'session'
     }
