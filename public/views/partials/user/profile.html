@@ -1,12 +1,29 @@
 <div class="col-sm-8">
 
+	{{#if successmessage}}
+	  	<div class="alert alert-success" role="alert">
+	    	{{successmessage}}
+	 	</div>
+	{{/if}}
+
+	{{#if errormessage}}
+	  	<div class="alert alert-danger" role="alert">
+	    	{{errormessage}}
+	 	</div>
+	{{/if}}
+
+
 	<div class="panel panel-default">
 	  	<div class="panel-heading">
-	    	<h3 class="panel-title">Your data</h3>
+	    	<h2 class="panel-title">Your data</h2>
 	 	</div>
 	  	<div class="panel-body">
             <h1>Profile View</h1>
-            <p>Welcome back: <b>{{user.name}}</b></p>
+			{{#if user.name}}
+            	<p>Welcome back: <b>{{user.name}}</b></p>
+			{{else}}
+	            <p>Welcome back!</b></p>
+			{{/if}}
 
         	<hr>
 

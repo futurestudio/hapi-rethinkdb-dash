@@ -160,9 +160,9 @@ users = {
 
             return core.users.update(user, request.payload).then(function (data) {
                 request.auth.session.set(data);
-                return reply.redirect('/profile');
+                return reply.view('user/profile', { successmessage: 'Data change successful.' });
             }).catch(function(error) {
-                return reply.redirect('/profile', { errormessage: error.output.payload.message });
+                return reply.view('user/profile', { errormessage: error.output.payload.message });
             });
         },
         auth: 'session'

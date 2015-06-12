@@ -1,5 +1,4 @@
-var dbconfig                = require(__dirname + '/../config/database')(process.env.NODE_ENV || 'local'),
-    thinky                  = require('thinky')(dbconfig),
+var thinky                  = require(__dirname + '/../utils/thinky'),
     r                       = thinky.r,
     bcrypt                  = require('bcrypt-as-promised'),
     when                    = require('when'),
@@ -7,6 +6,7 @@ var dbconfig                = require(__dirname + '/../config/database')(process
     _                       = require('lodash'),
     SALT_WORK_FACTOR        = 10,
     User;
+
 
 /**
  * Thinky user model
