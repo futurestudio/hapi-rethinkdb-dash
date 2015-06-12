@@ -8,7 +8,8 @@ module.exports = function (env) {
             host: "localhost",
             port: 28015,
             authKey: "",
-            db: "hapi_rethinkdb_boilerplate"
+            db: "hapi_rethinkdb_boilerplate",
+            silent: true
         };
     }
     else if (env === 'dev' || env === 'development') {
@@ -16,7 +17,8 @@ module.exports = function (env) {
             host: "localhost",
             port: 28015,
             authKey: "",
-            db: "hapi_rethinkdb_boilerplate"
+            db: "hapi_rethinkdb_boilerplate",
+            silent: true
         };
     }
     else if (env === 'test') {
@@ -24,7 +26,8 @@ module.exports = function (env) {
             host: "localhost",
             port: 28015,
             authKey: "",
-            db: "hapi_rethinkdb_boilerplate_test"
+            db: "hapi_rethinkdb_boilerplate_test",
+            silent: true
         };
     }
     else if (env === 'local' ) {
@@ -32,7 +35,8 @@ module.exports = function (env) {
             host: "localhost",
             port: 28015,
             authKey: "",
-            db: "hapi_rethinkdb_boilerplate"
+            db: "hapi_rethinkdb_boilerplate",
+            silent: true
         };
     }
 };
