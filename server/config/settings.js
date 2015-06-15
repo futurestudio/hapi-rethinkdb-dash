@@ -1,5 +1,6 @@
 var path                = require('path'),
-    views               = path.join(__dirname, '..', '..', 'public', 'views');
+    views               = path.join(__dirname, '..', '..', 'public', 'views'),
+    hbs                 = require('handlebars');
 
 /**
  * Default configuration for hapi server and various boilerplate options
@@ -10,12 +11,12 @@ module.exports = {
         options: {
             views: {
                 engines: {
-                    html: require('handlebars')
+                    html: hbs
                 },
                 path: views,
                 layoutPath: views + '/layout',
                 layout: 'default',
-                //helpersPath: views + '/helpers',
+                helpersPath: views + '/helpers',
                 partialsPath: views + '/partials'
             }
         }
