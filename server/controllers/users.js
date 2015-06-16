@@ -43,6 +43,7 @@ users = {
                 request.auth.session.set(data);
                 return reply.redirect('/profile');
             }).catch(function(error) {
+                console.log(error);
                 return reply.view('signup', { errormessage: error.output.payload.message });
             });
         }

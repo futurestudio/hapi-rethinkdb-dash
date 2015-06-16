@@ -155,6 +155,7 @@ users = {
             }
 
             user = new User(userdata);
+            user.role = 'User';
 
             return user.generatePassword().then(function(user) {
                 return when.resolve(user);
@@ -164,12 +165,22 @@ users = {
                 });
             }).then(function(users) {
                 if (_.isEmpty(users)) {
-                    return user.save().then(function(doc) {
-                        return when.resolve(doc);
+                    return User.count().execute().then(function(total) {
+                        if (total === 0) {
+                            user.role = 'owner';
+                        } else {
+                            user.role = 'user';
+                        }
+
+                        return when.resolve(user);
                     });
                 } else {
                     return when.reject(Boom.conflict('E-Mail address is already registered.'));
                 }
+            }).then(function(user) {
+                return user.save().then(function(doc) {
+                    return when.resolve(doc);
+                });
             });
         }).catch(function (error) {
             return when.reject(error);

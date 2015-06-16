@@ -11,7 +11,7 @@ is = function (context, options) {
     var currentContext = options.data.root.context;
 
     if (!_.isString(context)) {
-        console.log('FEHLER');
+        console.log('no context given to this helper');
         return;
     }
 
@@ -26,6 +26,7 @@ is = function (context, options) {
     if (evaluateContext(context)) {
         return options.fn(this);
     }
+
     return options.inverse(this);
 };
 

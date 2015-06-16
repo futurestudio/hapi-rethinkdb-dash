@@ -24,7 +24,8 @@ User = thinky.createModel("User", {
     auth_token: { _type: String, default: r.uuid()},
     auth_token_issued: {_type: Date, default: r.now()},
     created_at: {_type: Date, default: r.now()},
-    updated_at: {_type: Date, default: r.now()}
+    updated_at: {_type: Date, default: r.now()},
+    role: { _type: String, default: 'User'} // should only be ('owner', 'admin', 'editor', 'user')
 });
 
 /**
@@ -91,6 +92,10 @@ User._methods.generateAuthToken = function() {
     this.auth_token = r.uuid();
     this.auth_token_issued = r.now();
     return when.resolve(this);
+};
+
+User._methods.hasRole = function(roleName) {
+    return this.role === roleName;
 };
 
 module.exports = User;
