@@ -10,8 +10,6 @@ server.connection({
     port: process.env.PORT || config.port
 });
 
-server.views(config.hapi.options.views);
-
 // Bootstrap Hapi Server Plugins, passes the server object to the plugins
 require('./server/config/plugins')(server);
 

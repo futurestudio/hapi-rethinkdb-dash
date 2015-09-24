@@ -1,4 +1,7 @@
 var plugins = function(server) {
+    var path      = require('path'),
+      config      = require(path.join(__dirname, 'settings'));
+
     // options to pass into the 'good' logging plugin
     var goodOptions = {
         reporters: [{
@@ -17,11 +20,19 @@ var plugins = function(server) {
         },
         {
             register: require('hapi-auth-cookie')
+        },
+        {
+            register: require('vision')
+        },
+        {
+            register: require('inert')
         }
     ], function(err) {
         if (err) {
             throw err;
         }
+
+        server.views(config.hapi.options.views);
     });
 
     /**
