@@ -1,19 +1,19 @@
 'use strict'
 
-var _ = require('lodash')
-var Boom = require('boom')
-var when = require('when')
-var validator = require('validator')
-var User = require('../models/user')
-var utils = require('./utils')
-var nodemailer = require('nodemailer')
-var path = require('path')
-var htmlToText = require('html-to-text')
-var fs = require('fs')
-var config = require(path.join(__dirname, '..', 'config', 'settings'))
-var templatesDir = path.resolve(__dirname, '..', 'email-templates')
-var jsesc = require('jsesc')
-var users
+const _ = require('lodash')
+const Boom = require('boom')
+const when = require('when')
+const validator = require('validator')
+const User = require('../models/user')
+const utils = require('./utils')
+const nodemailer = require('nodemailer')
+const path = require('path')
+const htmlToText = require('html-to-text')
+const fs = require('fs')
+const config = require(path.join(__dirname, '..', 'config', 'settings'))
+const templatesDir = path.resolve(__dirname, '..', 'email-templates')
+const jsesc = require('jsesc')
+let users
 
 /**
  * User core functionality
@@ -113,7 +113,7 @@ users = {
    * @returns     {Promise(User)} User
    */
   login: function (body) {
-    var that = this
+    const that = this
 
     return utils.checkObject(body).then(function (userdata) {
       if (!validator.isEmail(userdata.email)) {
@@ -145,7 +145,7 @@ users = {
    * @returns     {Promise(User)} created User
    */
   create: function (object) {
-    var user
+    let user
 
     return utils.checkObject(object).then(function (userdata) {
       if (!validator.isEmail(userdata.email)) {
@@ -280,7 +280,7 @@ users = {
    * @returns     {Promise(User)} found user respective given email
    */
   forgotPassword: function (user) {
-    var that = this
+    const that = this
 
     return utils.checkObject(user).then(function (data) {
       if (!validator.isEmail(data.email)) {
@@ -306,12 +306,9 @@ users = {
 
           _.templateSettings.interpolate = /{{([\s\S]+?)}}/g
 
-          var htmlContent = _.template(fileContent),
-            // generate site url from content
-            siteUrl = config.baseUrl.replace(/\/$/, '') + '/reset-password/',
-            // insert user-specific data into the email
-            compiledHtml = htmlContent({ resetToken: user.password_reset_token, siteUrl: siteUrl }),
-            // generate a plain-text version of the same email
+          const htmlContent = _.template(fileContent),            // generate site url from content
+            siteUrl = config.baseUrl.replace(/\/$/, '') + '/reset-password/',            // insert user-specific data into the email
+            compiledHtml = htmlContent({ resetToken: user.password_reset_token, siteUrl: siteUrl }),            // generate a plain-text version of the same email
             textContent = htmlToText.fromString(compiledHtml)
 
           resolve({
@@ -323,7 +320,7 @@ users = {
     }).then(function (emailContent) {
       // "promisify" the template loading callback
       return when.promise(function (resolve, reject, notify) {
-        var transporter = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({
           service: config.email.service,
           auth: {
             user: config.email.auth.user,
@@ -331,7 +328,7 @@ users = {
           }
         })
 
-        var mailOptions = {
+        const mailOptions = {
           from: config.email.from,
           to: user.email,
           subject: 'Reset Password',
@@ -347,8 +344,6 @@ users = {
           }
         })
       })
-    }).catch(function (error) {
-      return when.reject(error)
     })
   },
 
@@ -378,7 +373,7 @@ users = {
         if (_.isEmpty(foundUsers)) {
           return when.reject(Boom.notFound('Wrong password request token.'))
         } else {
-          var content = {
+          const content = {
             user: _.first(foundUsers),
             new_password: data.new_password
           }
@@ -387,7 +382,7 @@ users = {
         }
       })
     }).then(function (data) {
-      var user = data.user
+      const user = data.user
       user.password = data.new_password
 
       return user.generatePassword().then(function (user) {

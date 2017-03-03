@@ -8,7 +8,6 @@ const GoodOptions = {
   } ]
 }
 
-
 const Plugins = [
   {
     register: require('good'),
