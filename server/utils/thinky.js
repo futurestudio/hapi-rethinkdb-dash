@@ -1,5 +1,7 @@
-var thinky = require('thinky'),
-    config = require(__dirname + '/../config/database')(process.env.NODE_ENV || 'local');
+'use strict'
+
+const Thinky = require('thinky')
+const Config = require(__dirname + '/../config/database')(process.env.NODE_ENV || 'local');
 
 // Initialize thinky based on db config
-module.exports = thinky(config);
+module.exports = Thinky(Config);
