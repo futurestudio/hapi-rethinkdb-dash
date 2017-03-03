@@ -4,8 +4,17 @@ let Handler
 
 Handler = {
   index: {
+    auth: {
+      mode: 'try',
+      strategy: 'session'
+    },
     handler: function (request, reply) {
       reply.view('index')
+    },
+    plugins: {
+      'hapi-auth-cookie': {
+        redirectTo: false
+      }
     }
   },
 
