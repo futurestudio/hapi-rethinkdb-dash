@@ -4,7 +4,7 @@ const Routes = require('./routes')
 
 exports.register = function (server, options, next) {
   // declare dependencies
-  server.dependency([ 'vision', 'authentication' ])
+  server.dependency([ 'vision', 'inert' ])
 
   server.route(Routes)
   console.log('info', 'Plugin registered: base routes & assets')

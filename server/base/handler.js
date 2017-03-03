@@ -4,7 +4,6 @@ let Handler
 
 Handler = {
   index: {
-    // auth: 'session',
     handler: function (request, reply) {
       reply.view('index')
     }
