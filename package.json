@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "author": "Marcus Poehls <marcus@futurestud.io>",
   "dependencies": {
-    "bcrypt-as-promised": "~1.0.1",
+    "bcrypt": "~1.0.2",
     "boom": "~4.2.0",
     "good": "~6.4.0",
     "good-console": "~5.1.0",
@@ -13,6 +13,7 @@
     "hapi-auth-cookie": "~6.1.1",
     "html-to-text": "~3.2.0",
     "inert": "~4.1.0",
+    "jsesc": "^2.4.0",
     "lodash": "~4.17.4",
     "nodemailer": "3.1.4",
     "thinky": "~2.3.8",

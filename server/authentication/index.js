@@ -14,13 +14,13 @@ exports.register = function (server, options, next) {
    * What’s next: JWT (we highly welcome pull requests to add JWT functionality!)
    */
   server.auth.strategy('session', 'cookie', {
-    password: 'thisisasecretpassword',
+    password: 'ThisIsASecretPasswordThisIsASecretPassword',
     cookie: 'hapi-rethink-dash',
     redirectTo: '/login',
     isSecure: false
   });
 
-  console.log('info', 'Plugin registered: cookie authentication with strategy "session"')
+  server.log('info', 'Plugin registered: cookie authentication with strategy »session«')
 
   next()
 }

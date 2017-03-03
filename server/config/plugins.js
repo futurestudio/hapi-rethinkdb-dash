@@ -4,9 +4,10 @@
 const GoodOptions = {
   reporters: [ {
     reporter: require('good-console'),
-    events: { log: '*', response: '*' }
+    events: { log: '*', request: '*', response: '*' }
   } ]
 }
+
 
 const Plugins = [
   {
@@ -27,6 +28,12 @@ const Plugins = [
   },
   {
     register: require('./../base')
+  },
+  {
+    register: require('./../user-login-signup')
+  },
+  {
+    register: require('./../user-profile')
   }
 ]
 

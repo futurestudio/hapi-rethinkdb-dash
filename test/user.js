@@ -83,7 +83,7 @@ describe('User API methods: CRUD', function() {
     it('Should update user data', function(done) {
         var data = {
             name: 'Test Name',
-            url: 'furz.com'
+            url: 'example.com'
         };
 
         api.users.update(user, data).then(function(result) {
@@ -248,7 +248,7 @@ describe('User API methods: CRUD', function() {
     it('Should not reset users password: confirm password token missing', function(done) {
         var data = {
             new_password: 'newpassword',
-            reset_token: user.password_reset_token            
+            reset_token: user.password_reset_token
         };
 
         api.users.resetPassword(data).then(function(result) {

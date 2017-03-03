@@ -22,9 +22,10 @@ coverage
 public/static/img/user/
 public/static/img/recipes/
 
-#############
-## IDEA IntelliJ/Webstorm
-#############
 
+# IDEA IntelliJ/Webstorm
 .idea
 *.iml
+
+# Vagrant
+.vagrant

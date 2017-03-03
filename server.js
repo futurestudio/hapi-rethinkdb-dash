@@ -14,7 +14,8 @@ const server = new Hapi.Server({
 // add connection parameters
 server.connection({
   host: 'localhost',
-  port: process.env.PORT || Config.port
+  port: process.env.PORT || Config.port,
+  routes: { log: true }
 })
 
 // Bootstrap Hapi Server Plugins, passes the server object to the plugins
@@ -32,7 +33,7 @@ server.register(Plugins, function (err) {
     }
 
     // Log to the console the host and port info
-    console.log('Server started at: ' + server.info.uri)
+    server.log('info', 'Server started at: ' + server.info.uri)
   })
 
 })

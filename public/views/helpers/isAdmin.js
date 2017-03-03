@@ -1,19 +1,21 @@
+'use strict'
+
 // # IsAdmin Helper
 // Usage: `{{#isAdmin}}`
 // Checks whether the user has admin or owner rule
-var _               = require('lodash'),
-    isAdmin;
+const _ = require('lodash')
+let isAdmin
 
 isAdmin = function (options) {
-    options = options || {};
+  options = options || {}
 
-    var user = options.data.root.user;
+  const user = options.data.root.user || {}
 
-    if (_.includes([user.role], 'owner', 'admin')) {
-        return options.fn(this);
-    }
+  if (_.includes([ user.scope ], 'admin')) {
+    return options.fn(this)
+  }
 
-    return options.inverse(this);
-};
+  return options.inverse(this)
+}
 
-module.exports = isAdmin;
+module.exports = isAdmin

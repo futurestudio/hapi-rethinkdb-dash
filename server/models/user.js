@@ -1,32 +1,34 @@
-var thinky                  = require(__dirname + '/../utils/thinky'),
-    r                       = thinky.r,
-    bcrypt                  = require('bcrypt-as-promised'),
-    when                    = require('when'),
-    Boom                    = require('boom'),
-    _                       = require('lodash'),
-    SALT_WORK_FACTOR        = 10,
-    User;
+'use strict'
 
+const thinky = require(__dirname + '/../utils/thinky')
+const r = thinky.r
+const type = thinky.type
+const bcrypt = require('bcrypt')
+const when = require('when')
+const Boom = require('boom')
+const _ = require('lodash')
+const SALT_WORK_FACTOR = 10
+let User
 
 /**
  * Thinky user model
  */
-User = thinky.createModel("User", {
-    id: { _type: String, default: r.uuid()},
-    username: String,
-    name: String,
-    url: String,
-    email: String,
-    email_verification: {_type: String, default: r.uuid()},
-    password: String,
-    password_reset_token: String,
-    password_reset_deadline: Date,
-    auth_token: { _type: String, default: r.uuid()},
-    auth_token_issued: {_type: Date, default: r.now()},
-    created_at: {_type: Date, default: r.now()},
-    updated_at: {_type: Date, default: r.now()},
-    role: { _type: String, default: 'User'} // should only be ('owner', 'admin', 'editor', 'user')
-});
+User = thinky.createModel('User', {
+  id: type.string().default(r.uuid()),
+  username: type.string(),
+  name: type.string(),
+  url: type.string(),
+  email: type.string(),
+  email_verification: type.string().default(r.uuid()),
+  password: type.string(),
+  password_reset_token: type.string(),
+  password_reset_deadline: type.date(),
+  auth_token: type.string().default(r.uuid()),
+  auth_token_issued: type.date().default(r.now()),
+  created_at: type.date().default(r.now()),
+  updated_at: type.date().default(r.now()),
+  scope: type.array() // ['admin', 'user'],
+})
 
 /**
  * Add method "comparePassword" to user model
@@ -34,68 +36,73 @@ User = thinky.createModel("User", {
  * This method checks whether the provided candidate password matches the
  * user password
  */
-User._methods.comparePassword = function(candidatePassword) {
-    var user = this;
+User.define('comparePassword', function (candidatePassword) {
+  const self = this
 
-    return bcrypt.compare(candidatePassword, user.password).then(function(isMatch) {
-        return when.resolve(isMatch);
-    }).catch(function(error) {
-        return when.reject(Boom.badRequest('Password is wrong.'));
-    });
-};
+  return when.promise(function (resolve, reject) {
+    bcrypt.compare(candidatePassword, self.password, function (err, isMatch) {
+      if (isMatch) {
+        return resolve(self)
+      }
+      return reject(Boom.badRequest('The entered password is not correct.'))
+    })
+  })
+})
 
 /**
  * This method salts, hashes and saves the user password. Additionally, a new
  * auth_token gets generated
  */
-User._methods.generatePassword = function() {
-    var user = this;
+User.define('generatePassword', function () {
+  const self = this
 
-    return bcrypt.genSalt(SALT_WORK_FACTOR).then(function(salt) {
-        return bcrypt.hash(user.password, salt).then(function(hash) {
-            user.password = hash;
-            return when.promise(function(resolve, reject, notify) {
-                resolve(user);
-            });
-        });
-    }).then(function(user) {
-        user.auth_token = r.uuid();
-        user.auth_token_issued = r.now();
+  return when.promise(function (resolve, reject) {
+    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+      if (err) {
+        return reject(Boom.badRequest('There was an error while hashing your password'))
+      }
+      bcrypt.hash(self.password, salt, function (err, hash) {
+        if (err) {
+          return reject(Boom.badRequest('There was an error while hashing your password'))
+        }
 
-        return when.promise(function(resolve, reject, notify) {
-            resolve(user);
-        });
-    }).catch(function(error) {
-        return when.reject(error);
-    });
-};
+        self.password = hash
+        return resolve(self)
+      })
+    })
+  })
+})
 
 /**
  * This method generates a password reset token and sets the token’s deadline to t + 1h
  */
-User._methods.generatePasswordResetToken = function() {
-    var user = this,
-        date = new Date();
+User.define('generatePasswordResetToken', function () {
+  const user = this
+  const date = new Date()
 
-    return r.uuid().then(function(uuid) {
-        user.password_reset_token = uuid;
-        user.password_reset_deadline = new Date(date.setHours(date.getHours() + 1));
+  return r.uuid().then(function (uuid) {
+    user.password_reset_token = uuid
+    user.password_reset_deadline = new Date(date.setHours(date.getHours() + 1))
 
-        return when.resolve(user);
-    });
-};
+    return when.resolve(user)
+  })
+})
 
 /**
  * This method generates a new auth token
  */
-User._methods.generateAuthToken = function() {
-    this.auth_token = r.uuid();
-    this.auth_token_issued = r.now();
-    return when.resolve(this);
-};
+User.define('generateAuthToken', function () {
+  const self = this
 
-User._methods.hasRole = function(roleName) {
-    return this.role === roleName;
-};
+  return r.uuid().then(function (id) {
+    self.auth_token = id
+    return when.resolve(self)
+  }).then(function (user) {
+    return r.now().then(function (datetime) {
+      user.auth_token_issued = datetime
+      return when.resolve(user)
+    })
+  })
+})
 
-module.exports = User;
+module.exports = User
