@@ -1,5 +1,5 @@
 {
-  "name": "hapi-rethinkdb-api-boilerplate",
+  "name": "hapi-rethinkdb-dash",
   "description": "NodeJS account boilerplate based on hapi, rethinkdb, handlebars and bootstrap",
   "version": "2.0.0",
   "author": "Marcus Poehls <marcus@futurestud.io>",
@@ -13,6 +13,7 @@
     "hapi-auth-cookie": "~6.1.1",
     "html-to-text": "~3.2.0",
     "inert": "~4.1.0",
+    "joi": "~10.2.2",
     "jsesc": "^2.4.0",
     "lodash": "~4.17.4",
     "nodemailer": "3.1.4",
