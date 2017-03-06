@@ -1,6 +1,8 @@
 hapi-rethinkdb-dash
 ==========================
 
+[![Build Status](https://semaphoreci.com/api/v1/futurestudio/hapi-rethinkdb-dash/branches/develop/badge.svg)](https://semaphoreci.com/futurestudio/hapi-rethinkdb-dash)
+
 This is a project boilerplate based on NodeJS and RethinkDB. It reduces the initial effort which comes for every project. You can start with the fun things and skip the implementation of an account system (for the 25th time).
 
 Development of Hapi-RethinkDB-Dash is ongoing and we plan to implement new features over time. The following list depicts the already available features
