@@ -107,34 +107,19 @@ users = {
   },
 
   /**
-   * Login user: requires email and password in the object body.
    *
-   * @param       {body} user email and password
-   * @returns     {Promise(User)} User
+   * @param userdata - user data containing email and password
+   * @returns {Promise|*}
    */
-  login: function (body) {
-    const that = this
-
-    return utils.checkObject(body).then(function (userdata) {
-      if (!validator.isEmail(userdata.email)) {
-        return when.reject(Boom.badRequest('Email address missing.'))
-      }
-
-      if (!validator.isLength(userdata.password, 6)) {
-        return when.reject(Boom.badRequest('Password missing.'))
-      }
-
-      return that.findByEmail(userdata.email)
-    }).then(function (user) {
-      return user.comparePassword(body.password).then(function (isMatch) {
+  login: function (userdata) {
+    return this.findByEmail(userdata.email).then(function (user) {
+      return user.comparePassword(userdata.password).then(function (isMatch) {
         if (isMatch) {
           return when.resolve(user)
         } else {
           return when.reject('Password not correct.')
         }
       })
-    }).catch(function (error) {
-      return when.reject(error)
     })
   },
 

@@ -58,7 +58,7 @@ Users = {
         abortEarly: false
       },
       failAction: function (request, reply, source, error) {
-// extracts the key which caused the failed validation ("email" or "password")
+        // extracts the key which caused the failed validation ("email" or "password")
         const errorKey = error.data.details[ 0 ].path
         error[ errorKey ] = {
           // Use the Joi error message
@@ -104,23 +104,6 @@ Users = {
    * Renders login view if not authenticated, else redirects to profile page
    */
   login: {
-    handler: function (request, reply) {
-      if (request.auth.isAuthenticated) {
-        return reply.redirect('/profile')
-      }
-
-      var data = {
-        email: request.payload.email_username,
-        password: request.payload.password
-      }
-
-      return Core.users.login(data).then(function (data) {
-        request.cookieAuth.set(data)
-        return reply.redirect('/profile')
-      }).catch(function (error) {
-        return reply.view('login', { errormessage: error.output.payload.message })
-      })
-    },
     auth: {
       mode: 'try',
       strategy: 'session'
@@ -128,6 +111,45 @@ Users = {
     plugins: {
       'hapi-auth-cookie': {
         redirectTo: false
+      }
+    },
+    handler: function (request, reply) {
+      if (request.auth.isAuthenticated) {
+        return reply.redirect('/profile')
+      }
+
+      return Core.users.login(request.payload).then(function (data) {
+        request.cookieAuth.set(data)
+        return reply.redirect('/profile')
+      }).catch(function (error) {
+        return reply.view('login', { errormessage: error.output.payload.message })
+      })
+    },
+    validate: {
+      payload: {
+        email: Joi.string().required().label('Email address'),
+        password: Joi.string().required().min(6).label('Password')
+      },
+      options: {
+        abortEarly: false
+      },
+      failAction: function (request, reply, source, error) {
+        // extracts the key which caused the failed validation ("email" or "password")
+        const errorKey = error.data.details[ 0 ].path
+        error[ errorKey ] = {
+          // Use the Joi error message
+          message: error.data.details[ 0 ].message
+        }
+
+        const values = error.data._object
+        const data = {
+          values: values,
+          errors: error
+        }
+
+        console.log(data)
+
+        return reply.view('login', data).code(400)
       }
     }
   },
