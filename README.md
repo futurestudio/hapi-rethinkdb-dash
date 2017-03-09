@@ -1,5 +1,7 @@
-hapi-rethinkdb-dash
+hapi RethinkDB Dash
 ==========================
+
+Your Node.js boilerplate based on [hapi](http://hapijs.com/) and [RethinkDB](https://rethinkdb.com/).
 
 [![Build Status](https://semaphoreci.com/api/v1/futurestudio/hapi-rethinkdb-dash/branches/develop/badge.svg)](https://semaphoreci.com/futurestudio/hapi-rethinkdb-dash)
 
@@ -26,10 +28,10 @@ Hapi-RethinkDB-Dash requires
 
 Besides the core technologies it uses the following components (this list is very likely incomplete):
 
-- [hapi](http://hapijs.com/) — Node.js Web Framework
-- [RethinkDB](http://rethinkdb.com/) — Open-Source Database for the realtime web
+- [hapi](https://hapijs.com/) — Node.js Web Framework
+- [RethinkDB](https://rethinkdb.com/) — Open-Source Database for the realtime web
 - [Handlebars](http://handlebarsjs.com/) — HTML Templating Engine
-- [Bcrypt](https://www.npmjs.com/package/bcrypt-nodejs) — For password encryption
+- [bcrypt](https://www.npmjs.com/package/bcrypt) — For password encryption
 - [Twitter Bootstrap](http://getbootstrap.com/) — UI Component & Layout Library
 - [Mocha](https://www.npmjs.com/package/mocha) — node.js Testing framework
 
@@ -37,33 +39,45 @@ Besides the core technologies it uses the following components (this list is ver
 ## Configuration & Install
 Install NodeJS and RethinkDB before usage.
 
-    git clone git@github.com:fs-opensource/hapi-rethinkdb-dash.git
-    cd hapi-rethinkdb-dash
-    npm install
+```bash
+git clone git@github.com:fs-opensource/hapi-rethinkdb-dash.git
+cd hapi-rethinkdb-dash
+npm install
+```
 
 The **database configuration** is placed in `server/config/database.js`.
 
-    nano server/config/database.js
+```bash
+nano server/config/database.js
+```
 
 Currently this project does not use any handlebars helpers. That's why git deletes the `helpers` folder from within the `views` folder. Enabling helper classes requires you to uncomment the respective line in `server/config/settings.js`.
 
 The password reset functionality requires a valid mail configuration. Change the `email` and `baseUrl` settings to make things work.
 
-    nano server/config/settings.js
+```bash
+nano server/config/settings.js
+```
 
 Start server
 
-    node server
+```bash
+node server
+```
 
 Everthing went smooth? Visit
 
-    localhost:3000
+```bash
+localhost:3000
+```
 
 
 ## Tests
 Run tests with
 
-    npm test
+```bash
+npm test
+```
 
 
 ## Contributions
