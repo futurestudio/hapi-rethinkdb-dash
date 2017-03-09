@@ -1,12 +1,13 @@
 'use strict'
 
+const _ = require('lodash')
+const Boom = require('boom')
+const when = require('when')
+const bcrypt = require('bcrypt')
+
 const thinky = require(__dirname + '/../utils/thinky')
 const r = thinky.r
 const type = thinky.type
-const bcrypt = require('bcrypt')
-const when = require('when')
-const Boom = require('boom')
-const _ = require('lodash')
 const SALT_WORK_FACTOR = 10
 let User
 
@@ -102,6 +103,30 @@ User.define('generateAuthToken', function () {
       user.auth_token_issued = datetime
       return when.resolve(user)
     })
+  })
+})
+
+/**++++++++++++++++++++++++++++++*
+ * Static Model Methods
+ **++++++++++++++++++++++++++++++*/
+
+User.defineStatic('findById', function findById (id) {
+  if (_.isEmpty(id)) {
+    return when.reject(Boom.badRequest('User id missing.'))
+  }
+
+  return this.get(id).run().then(function (user) {
+    if (user) {
+      return when.resolve(user)
+    }
+
+    return when.reject(Boom.notFound('No user registered with provided credentials.'))
+  })
+})
+
+User.defineStatic('findByEmail', function findByEmail (email) {
+  return this.filter({ email: email }).run().then(function (users) {
+    return when.resolve(_.first(users))
   })
 })
 
