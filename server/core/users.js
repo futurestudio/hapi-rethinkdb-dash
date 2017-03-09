@@ -139,53 +139,28 @@ users = {
   },
 
   /**
-   * Create user
    *
-   * @param       {object} user data
-   * @returns     {Promise(User)} created User
+   *
+   * @param userdata - the user's data
+   * @returns {Promise} - User
    */
-  create: function (object) {
-    let user
+  create: function (userdata) {
+    const user = new User(Object.assign({ scope: [ 'user' ] }, userdata))
 
-    return utils.checkObject(object).then(function (userdata) {
-      if (!validator.isEmail(userdata.email)) {
-        return when.reject(Boom.badRequest('Email address missing.'))
-      }
-
-      if (!validator.isLength(userdata.password, 6)) {
-        return when.reject(Boom.badRequest('Password must be at least 6 characters.'))
-      }
-
-      user = new User(Object.assign({}, userdata))
-      user.scope = [ 'user' ]
-
-      return user.generatePassword().then(function (user) {
-        return when.resolve(user)
-      }).then(function (user) {
-        return User.filter({ email: user.email }).run().then(function (foundUsers) {
-          return when.resolve(foundUsers)
-        })
-      }).then(function (users) {
-        if (_.isEmpty(users)) {
-          return User.count().execute().then(function (total) {
-            if (total === 0) {
-              user.role = 'owner'
-            } else {
-              user.role = 'user'
-            }
-
-            return when.resolve(user)
-          })
-        } else {
-          return when.reject(Boom.conflict('E-Mail address is already registered.'))
-        }
-      }).then(function (user) {
-        return user.save().then(function (doc) {
-          return when.resolve(doc)
-        })
+    return user.generatePassword().then(function (user) {
+      return when.resolve(user)
+    }).then(function (user) {
+      return User.filter({ email: user.email }).run().then(function (foundUsers) {
+        return when.resolve(foundUsers)
       })
-    }).catch(function (error) {
-      return when.reject(error)
+    }).then(function (users) {
+      if (_.isEmpty(users)) {
+        return when.resolve(user)
+      } else {
+        return when.reject(Boom.conflict('E-Mail address is already registered.'))
+      }
+    }).then(function (user) {
+      return user.save()
     })
   },
 

@@ -1,7 +1,8 @@
 'use strict'
 
-const Core = require('./../core')
 const _ = require('lodash')
+const Joi = require('joi')
+const Core = require('./../core')
 let Users
 
 /**
@@ -10,7 +11,7 @@ let Users
  */
 Users = {
   /**
-   * Renderes signup view if not authenticated, else redirects to profile page
+   * Renders sign up view if not authenticated, else redirects to profile page
    */
   showSignup: {
     handler: function (request, reply) {
@@ -32,7 +33,7 @@ Users = {
   },
 
   /**
-   * Renderes signup view if not authenticated, else redirects to profile page
+   * Renders sign up view if not authenticated, else redirects to profile page
    */
   signup: {
     handler: function (request, reply) {
@@ -45,13 +46,40 @@ Users = {
         return reply.redirect('/profile')
       }).catch(function (error) {
         console.log(error)
-        return reply.view('signup', { errormessage: error.output.payload.message })
+        return reply.view('signup', { errormessage: error.output.payload.message }).code(400)
       })
+    },
+    validate: {
+      payload: {
+        email: Joi.string().required().label('Email address'),
+        password: Joi.string().required().min(6).label('Password')
+      },
+      options: {
+        abortEarly: false
+      },
+      failAction: function (request, reply, source, error) {
+// extracts the key which caused the failed validation ("email" or "password")
+        const errorKey = error.data.details[ 0 ].path
+        error[ errorKey ] = {
+          // Use the Joi error message
+          message: error.data.details[ 0 ].message
+        }
+
+        const values = error.data._object
+        const data = {
+          values: values,
+          errors: error
+        }
+
+        console.log(data)
+
+        return reply.view('signup', data).code(400)
+      }
     }
   },
 
   /**
-   * Renderes login view if not authenticated, else redirects to profile page
+   * Renders login view if not authenticated, else redirects to profile page
    */
   showLogin: {
     handler: function (request, reply) {
@@ -73,7 +101,7 @@ Users = {
   },
 
   /**
-   * Renderes login view if not authenticated, else redirects to profile page
+   * Renders login view if not authenticated, else redirects to profile page
    */
   login: {
     handler: function (request, reply) {
