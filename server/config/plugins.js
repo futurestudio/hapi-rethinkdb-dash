@@ -2,10 +2,22 @@
 
 // options to pass into the 'good' logging plugin
 const GoodOptions = {
-  reporters: [ {
-    reporter: require('good-console'),
-    events: { log: '*', request: '*', response: '*' }
-  } ]
+  ops: {
+    interval: 10000
+  },
+  reporters: {
+    console: [
+      {
+        module: 'good-squeeze',
+        name: 'Squeeze',
+        args: [ { log: '*', response: '*', request: '*' } ]
+      },
+      {
+        module: 'good-console'
+      },
+      'stdout'
+    ]
+  }
 }
 
 const Plugins = [
