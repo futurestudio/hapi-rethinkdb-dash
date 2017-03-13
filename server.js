@@ -24,7 +24,7 @@ server.register(Plugins, function (err) {
     throw err
   }
 
-  server.views(Config.hapi.options.views);
+  server.views(Config.hapi.options.views)
 
   // Start the server
   server.start(function (err) {
@@ -35,5 +35,4 @@ server.register(Plugins, function (err) {
     // Log to the console the host and port info
     server.log('info', 'Server started at: ' + server.info.uri)
   })
-
 })
