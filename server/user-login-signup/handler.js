@@ -84,8 +84,6 @@ Users = {
           errors: error
         }
 
-        console.log(data)
-
         return reply.view('signup', data).code(400)
       }
     }
@@ -166,8 +164,6 @@ Users = {
           values: values,
           errors: error
         }
-
-        console.log(data)
 
         return reply.view('login', data).code(400)
       }
