@@ -9,8 +9,8 @@ Users = {
    * Renderes profile page
    */
   profile: {
-    handler: function(request, reply) {
-      return reply.view('user/profile', {user: request.auth.credentials})
+    handler: function (request, reply) {
+      return reply.view('user/profile', { user: request.auth.credentials })
     },
     auth: 'session'
   },
@@ -20,8 +20,8 @@ Users = {
    * Renderes change password page
    */
   showChangePassword: {
-    handler: function(request, reply) {
-      return reply.view('user/change-password', {user: request.auth.credentials})
+    handler: function (request, reply) {
+      return reply.view('user/change-password', { user: request.auth.credentials })
     },
     auth: 'session'
   },
@@ -30,13 +30,13 @@ Users = {
    * Performs the change password operation
    */
   changePassword: {
-    handler: function(request, reply) {
+    handler: function (request, reply) {
       const user = request.auth.credentials
 
-      return Core.users.changePassword(user, request.payload).then(function(data) {
+      return Core.users.changePassword(user, request.payload).then(function (data) {
         request.cookieAuth.set(data)
         return reply.view('user/change-password', { successmessage: 'Password change successful.' })
-      }).catch(function(error) {
+      }).catch(function (error) {
         console.log(error)
         return reply.view('user/change-password', { errormessage: error.output.payload.message })
       })
@@ -48,13 +48,13 @@ Users = {
    * Performs the update user operation
    */
   update: {
-    handler: function(request, reply) {
+    handler: function (request, reply) {
       const user = request.auth.credentials
 
       return Core.users.update(user, request.payload).then(function (data) {
         request.cookieAuth.set(data)
         return reply.view('user/profile', { successmessage: 'Data change successful.' })
-      }).catch(function(error) {
+      }).catch(function (error) {
         console.log(error)
         return reply.view('user/profile', { errormessage: error.output.payload.message })
       })
@@ -66,7 +66,7 @@ Users = {
    * Forgot password: sends an email with the new password if the user is already registered
    */
   showForgotPassword: {
-    handler: function(request, reply) {
+    handler: function (request, reply) {
       return reply.view('forgot-password')
     }
   },
@@ -75,33 +75,33 @@ Users = {
    * Forgot password: sends an email with the new password if the user is already registered
    */
   forgotPassword: {
-    handler: function(request, reply) {
+    handler: function (request, reply) {
       // TODO: redirect to login if already authenticated?
 
-      return Core.users.forgotPassword(request.payload).then(function(user) {
-        return reply.view('forgot-password', {successmessage: 'Email sent successfully. Check your inbox!'})
-      }).catch(function(error) {
+      return Core.users.forgotPassword(request.payload).then(function (user) {
+        return reply.view('forgot-password', { successmessage: 'Email sent successfully. Check your inbox!' })
+      }).catch(function (error) {
         return reply.view('forgot-password', { errormessage: error.output.payload.message })
       })
     }
   },
 
   showResetPassword: {
-    handler: function(request, reply) {
-      return reply.view('reset-password', {resetToken: request.params.resetToken})
+    handler: function (request, reply) {
+      return reply.view('reset-password', { resetToken: request.params.resetToken })
     }
   },
 
   resetPassword: {
-    handler: function(request, reply) {
+    handler: function (request, reply) {
       // TODO: redirect to login if already authenticated?
 
-      return Core.users.resetPassword(request.payload).then(function(user) {
+      return Core.users.resetPassword(request.payload).then(function (user) {
         request.cookieAuth.set(user)
         return reply.redirect('/profile')
 
         //return reply.view('reset-password', {successmessage: 'Password successfully changed!'})
-      }).catch(function(error) {
+      }).catch(function (error) {
         return reply.view('reset-password', { errormessage: error.output.payload.message })
       })
     }
@@ -111,13 +111,13 @@ Users = {
    * Performs the delete user operation
    */
   delete: {
-    handler: function(request, reply) {
+    handler: function (request, reply) {
       const user = request.auth.credentials
 
-      return Core.users.delete(user).then(function(data) {
+      return Core.users.delete(user).then(function (data) {
         request.cookieAuth.clear()
-        return reply.view('signup', {successmessage : data.message})
-      }).catch(function(error) {
+        return reply.view('signup', { successmessage: data.message })
+      }).catch(function (error) {
         return reply.view('user/change-password', { errormessage: error.output.payload.message })
       })
     },

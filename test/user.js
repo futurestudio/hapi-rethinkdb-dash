@@ -49,6 +49,7 @@ experiment('User methods:', function () {
     }
 
     server.inject(options, (response) => {
+
       done()
     })
   })
