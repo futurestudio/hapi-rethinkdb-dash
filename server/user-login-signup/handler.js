@@ -58,19 +58,41 @@ Users = {
         request.cookieAuth.set(user)
         return reply.redirect('/profile')
       }).catch(function (error) {
-        return reply.view('signup', { errormessage: error.output.payload.message })
+        console.log(error)
+        return reply.view('signup', { errormessage: error.output.payload.message }).code(400)
       })
     },
     validate: {
       payload: {
-        email: Joi.string().email().required(),
-        password: Joi.string().min(6).required()
+        email: Joi.string().required().label('Email address'),
+        password: Joi.string().required().min(6).label('Password')
+      },
+      options: {
+        abortEarly: false
+      },
+      failAction: function (request, reply, source, error) {
+        // extracts the key which caused the failed validation ("email" or "password")
+        const errorKey = error.data.details[ 0 ].path
+        error[ errorKey ] = {
+          // Use the Joi error message
+          message: error.data.details[ 0 ].message
+        }
+
+        const values = error.data._object
+        const data = {
+          values: values,
+          errors: error
+        }
+
+        console.log(data)
+
+        return reply.view('signup', data).code(400)
       }
     }
   },
 
   /**
-   * Renderes login view if not authenticated, else redirects to profile page
+   * Renders login view if not authenticated, else redirects to profile page
    */
   showLogin: {
     handler: function (request, reply) {
@@ -92,12 +114,17 @@ Users = {
   },
 
   /**
-   * Renderes login view if not authenticated, else redirects to profile page
+   * Renders login view if not authenticated, else redirects to profile page
    */
   login: {
     auth: {
       mode: 'try',
       strategy: 'session'
+    },
+    plugins: {
+      'hapi-auth-cookie': {
+        redirectTo: false
+      }
     },
     handler: function (request, reply) {
       if (request.auth.isAuthenticated) {
@@ -112,20 +139,37 @@ Users = {
         })
       }).then(function (user) {
         request.cookieAuth.set(user)
+
         return reply.redirect('/profile')
       }).catch(function (error) {
         return reply.view('login', { errormessage: error.output.payload.message })
       })
     },
-    plugins: {
-      'hapi-auth-cookie': {
-        redirectTo: false
-      }
-    },
     validate: {
       payload: {
-        email: Joi.string().email().required(),
-        password: Joi.string().min(6).required()
+        email: Joi.string().required().label('Email address'),
+        password: Joi.string().required().min(6).label('Password')
+      },
+      options: {
+        abortEarly: false
+      },
+      failAction: function (request, reply, source, error) {
+        // extracts the key which caused the failed validation ("email" or "password")
+        const errorKey = error.data.details[ 0 ].path
+        error[ errorKey ] = {
+          // Use the Joi error message
+          message: error.data.details[ 0 ].message
+        }
+
+        const values = error.data._object
+        const data = {
+          values: values,
+          errors: error
+        }
+
+        console.log(data)
+
+        return reply.view('login', data).code(400)
       }
     }
   },

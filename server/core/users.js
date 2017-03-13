@@ -37,6 +37,120 @@ users = {
   },
 
   /**
+   * Find user by id
+   *
+   * @param       {id} user id
+   * @returns     {Promise(User)} User
+   */
+  findById: function (id) {
+    if (_.isEmpty(id)) {
+      return when.reject(Boom.badRequest('User id missing.'))
+    }
+
+    return User.get(id).run().then(function (user) {
+      if (user) {
+        return when.resolve(user)
+      }
+
+      return when.reject(Boom.notFound('No user registered with provided credentials.'))
+    }).error(function (error) {
+      return when.reject(error)
+    })
+  },
+
+  /**
+   * Find user by email
+   *
+   * @param       {email} user email
+   * @returns     {Promise(User)} User
+   */
+  findByEmail: function (email) {
+    if (_.isEmpty(email)) {
+      return when.reject(Boom.badRequest('Email missing.'))
+    }
+
+    if (!validator.isEmail(email)) {
+      return when.reject(Boom.badRequest('Email address required.'))
+    }
+
+    return User.filter({ email: email }).run().then(function (users) {
+      if (_.isEmpty(users)) {
+        return when.reject(Boom.notFound('No user registered with provided credentials.'))
+      }
+
+      return when.resolve(_.first(users))
+    }).error(function (error) {
+      return when.reject(error)
+    })
+  },
+
+  /**
+   * Find user by auth token
+   *
+   * @param       {token} authentication token
+   * @returns     {Promise(User)} User
+   */
+  findByAuthToken: function (token) {
+    if (_.isEmpty(token)) {
+      return when.reject(Boom.badRequest('Token missing.'))
+    }
+
+    return User.filter({ auth_token: token }).run().then(function (users) {
+      if (_.isEmpty(users)) {
+        return when.reject(Boom.notFound('No user registered with provided credentials.'))
+      }
+
+      return when.resolve(_.first(users))
+    }).error(function (error) {
+      return when.reject(error)
+    })
+  },
+
+  /**
+   *
+   * @param userdata - user data containing email and password
+   * @returns {Promise|*}
+   */
+  login: function (userdata) {
+    return this.findByEmail(userdata.email).then(function (user) {
+      return user.comparePassword(userdata.password).then(function (isMatch) {
+        if (isMatch) {
+          return when.resolve(user)
+        } else {
+          return when.reject('Password not correct.')
+        }
+      })
+    })
+  },
+
+  /**
+   *
+   *
+   * @param userdata - the user's data
+   * @returns {Promise} - User
+   */
+  create: function (userdata) {
+    const user = new User(Object.assign({ scope: [ 'user' ] }, userdata))
+
+    return user.generatePassword().then(function (user) {
+      return when.resolve(user)
+    }).then(function (user) {
+      return User.filter({ email: user.email }).run().then(function (foundUsers) {
+        return when.resolve(foundUsers)
+      })
+    }).then(function (users) {
+      if (_.isEmpty(users)) {
+        return when.resolve(user)
+      } else {
+        return when.reject(Boom.conflict('E-Mail address is already registered.'))
+      }
+    }).then(function (user) {
+      return user.save()
+    })
+  },
+
+  /**
+>>>>>>> develop
    * Update user
    *
    * @param       {user, body} user, request body

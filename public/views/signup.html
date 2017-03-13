@@ -14,17 +14,21 @@
 
 		<div class="panel panel-default">
 		  	<div class="panel-heading">
-		    	<h3 class="panel-title">Thanks for signing up</h3>
+		    	<h3 class="panel-title">Sign up</h3>
 			</div>
 		  	<div class="panel-body">
 		    	<form accept-charset="UTF-8" role="form" method="POST" action="/signup">
                 <fieldset>
-		    	  	<div class="form-group">
-					    <label for="email">Email address</label>
-		    		    <input class="form-control" placeholder="E-mail" name="email" id="email" type="text">
+		    	  	<div class="form-group {{#if errors.email}}has-error{{/if}}">
+					    <label class="control-label" for="email">
+                            {{#if errors.email}}{{errors.email.message}}{{else}}Email address{{/if}}
+                        </label>
+		    		    <input class="form-control" placeholder="E-mail" name="email" id="email" type="text" value="{{values.email}}">
 		    		</div>
-		    		<div class="form-group">
-					    <label for="password">Password (at least 6 Chars)</label>
+		    		<div class="form-group {{#if errors.password}}has-error{{/if}}">
+					    <label class="control-label" for="password">
+                            {{#if errors.password}}{{errors.password.message}}{{else}}Password (at least 6 Chars){{/if}}
+                        </label>
 		    			<input class="form-control" placeholder="Password" name="password" id="password" type="password" value="">
 		    		</div>
 		    		<div class="form-group">

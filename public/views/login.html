@@ -13,12 +13,16 @@
 		  	<div class="panel-body">
 		    	<form accept-charset="UTF-8" role="form" method="POST" action="/login">
                 <fieldset>
-		    	  	<div class="form-group">
-						<label for="email">Email address</label>
+		    	  	<div class="form-group {{#if errors.email}}has-error{{/if}}">
+                        <label class="control-label" for="email">
+                            {{#if errors.email}}{{errors.email.message}}{{else}}Email address{{/if}}
+                        </label>
 						<input class="form-control" placeholder="E-mail" name="email" id="email" type="text">
 		    		</div>
-		    		<div class="form-group">
-						<label for="password">Password</label>
+                    <div class="form-group {{#if errors.password}}has-error{{/if}}">
+                        <label class="control-label" for="password">
+                            {{#if errors.password}}{{errors.password.message}}{{else}}Password{{/if}}
+                        </label>
 						<input class="form-control" placeholder="Password" name="password" id="password" type="password" value="">
 		    		</div>
 		    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
