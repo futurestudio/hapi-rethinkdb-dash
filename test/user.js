@@ -7,8 +7,11 @@ const Hapi = require('hapi')
 const server = new Hapi.Server();
 server.connection({ port: 3000 });
 
+const _ = require('lodash')
 const Plugins = require('../server/config/plugins')
 const Config = require('../server/config/database')('test')
+const ViewConfig = require('../server/config/settings')
+
 const thinky = require('thinky')(Config)
 const r = thinky.r
 const Core = require('../server/core')
@@ -24,9 +27,11 @@ experiment('User methods:', function () {
   before(function (done) {
     server.register(Plugins, function (err) {
       if (err) {
-        console.log(err)
+        console.error(err)
         throw err
       }
+
+      server.views(ViewConfig.hapi.options.views)
 
       done()
     })
@@ -48,22 +53,34 @@ experiment('User methods:', function () {
       }
     }
 
-    server.inject(options, (response) => {
-
-      done()
+    server.inject(options, () => {
+      User.findByEmail('test@user.com').then(function (user) {
+        Code.expect(user).to.be.an.object()
+        done()
+      })
     })
   })
 
-  // test('Should not create a second user with the same email address', function (done) {
-  //   Core.users.create(user).then(function (result) {
-  //     Code.expect(result).to.be.null()
-  //     done()
-  //   }).catch(function (error) {
-  //     Code.expect(error).to.be.an.object()
-  //     done()
-  //   })
-  // })
-  //
+  test('Should not create a second user with the same email address', function (done) {
+    const options = {
+      url: '/signup',
+      method: 'POST',
+      payload: {
+        email: 'test@user.com',
+        password: 'password'
+      }
+    }
+
+    server.inject(options, (reply) => {
+      Code.expect(reply.statusCode).to.equal(409)
+
+      User.run().then(function (users) {
+        Code.expect(users.length).to.equal(1)
+        done()
+      })
+    })
+  })
+
   // test('Should not create user without email', function (done) {
   //   const u = {
   //     password: 'testpassword'
