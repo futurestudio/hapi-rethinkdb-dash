@@ -58,8 +58,8 @@ Users = {
         request.cookieAuth.set(user)
         return reply.redirect('/profile')
       }).catch(function (error) {
-        console.log(error)
-        return reply.view('signup', { errormessage: error.output.payload.message }).code(400)
+        const status = error.isBoom ? error.output.statusCode : 400
+        return reply.view('signup', { errormessage: error.output.payload.message }).code(status)
       })
     },
     validate: {
