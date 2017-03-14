@@ -4,6 +4,7 @@ hapi RethinkDB Dash
 Your Node.js boilerplate based on [hapi](http://hapijs.com/) and [RethinkDB](https://rethinkdb.com/).
 
 [![Build Status](https://semaphoreci.com/api/v1/futurestudio/hapi-rethinkdb-dash/branches/develop/badge.svg)](https://semaphoreci.com/futurestudio/hapi-rethinkdb-dash)
+[![Known Vulnerabilities](https://snyk.io/test/github/fs-opensource/hapi-rethinkdb-dash/badge.svg)](https://snyk.io/test/github/fs-opensource/hapi-rethinkdb-dash)
 
 This is a project boilerplate based on NodeJS and RethinkDB. It reduces the initial effort which comes for every project. You can start with the fun things and skip the implementation of an account system (for the 25th time).
 

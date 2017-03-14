@@ -40,6 +40,6 @@
   },
   "scripts": {
     "start": "node server",
-    "test": "lab --assert code --leaks --coverage"
+    "test": "lab --assert code --leaks --coverage --coverage-exclude public --coverage-exclude server/config"
   }
 }

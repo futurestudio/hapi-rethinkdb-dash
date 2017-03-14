@@ -1,23 +1,29 @@
 'use strict'
 
+const _ = require('lodash')
+
 // options to pass into the 'good' logging plugin
+const reporterOptions = {
+  console: [
+    {
+      module: 'good-squeeze',
+      name: 'Squeeze',
+      args: [ { log: '*', response: '*', request: '*' } ]
+    },
+    {
+      module: 'good-console'
+    },
+    'stdout'
+  ]
+}
+
+const reporters = (_.isEqual(process.env.NODE_ENV, 'test')) ? {} : reporterOptions
+
 const GoodOptions = {
   ops: {
     interval: 10000
   },
-  reporters: {
-    console: [
-      {
-        module: 'good-squeeze',
-        name: 'Squeeze',
-        args: [ { log: '*', response: '*', request: '*' } ]
-      },
-      {
-        module: 'good-console'
-      },
-      'stdout'
-    ]
-  }
+  reporters: reporters
 }
 
 const Plugins = [

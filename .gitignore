@@ -31,3 +31,6 @@ public/static/img/recipes/
 
 # Vagrant
 .vagrant
+
+# Visual Studio code
+.vscode

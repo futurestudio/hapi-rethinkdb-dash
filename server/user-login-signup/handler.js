@@ -2,7 +2,9 @@
 
 const _ = require('lodash')
 const Joi = require('joi')
-const Core = require('./../core')
+const Boom = require('boom')
+const Promise = require('when')
+const User = require('./../models').User
 let Users
 
 /**
@@ -10,9 +12,6 @@ let Users
  * Handles the session configuration and rendering of views with data
  */
 Users = {
-  /**
-   * Renders sign up view if not authenticated, else redirects to profile page
-   */
   showSignup: {
     handler: function (request, reply) {
       if (request.auth.isAuthenticated) {
@@ -32,21 +31,34 @@ Users = {
     }
   },
 
-  /**
-   * Renders sign up view if not authenticated, else redirects to profile page
-   */
   signup: {
     handler: function (request, reply) {
       if (request.auth.isAuthenticated) {
         return reply.redirect('/profile')
       }
 
-      return Core.users.create(request.payload).then(function (data) {
-        request.cookieAuth.set(data)
+      const payload = request.payload
+
+      return User.findByEmail(payload.email).then(function (user) {
+        if (!_.isEmpty(user)) {
+          return Promise.reject(Boom.conflict('E-Mail address is already registered.'))
+        }
+
+        user = new User({
+          email: payload.email,
+          password: payload.password,
+          scope: [ 'user' ]
+        })
+
+        return user.generatePassword()
+      }).then(function (user) {
+        return user.save()
+      }).then(function (user) {
+        request.cookieAuth.set(user)
         return reply.redirect('/profile')
       }).catch(function (error) {
-        console.log(error)
-        return reply.view('signup', { errormessage: error.output.payload.message }).code(400)
+        const status = error.isBoom ? error.output.statusCode : 400
+        return reply.view('signup', { errormessage: error.output.payload.message }).code(status)
       })
     },
     validate: {
@@ -70,8 +82,6 @@ Users = {
           values: values,
           errors: error
         }
-
-        console.log(data)
 
         return reply.view('signup', data).code(400)
       }
@@ -118,8 +128,15 @@ Users = {
         return reply.redirect('/profile')
       }
 
-      return Core.users.login(request.payload).then(function (data) {
-        request.cookieAuth.set(data)
+      const payload = request.payload
+
+      return User.findByEmail(request.payload.email).then(function (user) {
+        return user.comparePassword(payload.password).then(function (isMatch) {
+          return isMatch ? Promise.resolve(user) : Promise.reject('Password not correct')
+        })
+      }).then(function (user) {
+        request.cookieAuth.set(user)
+
         return reply.redirect('/profile')
       }).catch(function (error) {
         return reply.view('login', { errormessage: error.output.payload.message })
@@ -146,8 +163,6 @@ Users = {
           values: values,
           errors: error
         }
-
-        console.log(data)
 
         return reply.view('login', data).code(400)
       }
