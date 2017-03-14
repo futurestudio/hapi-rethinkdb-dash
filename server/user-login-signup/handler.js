@@ -1,11 +1,10 @@
 'use strict'
 
-const Core = require('./../core')
-const User = require('./../models').User
 const _ = require('lodash')
 const Joi = require('joi')
 const Boom = require('boom')
 const Promise = require('when')
+const User = require('./../models').User
 let Users
 
 /**

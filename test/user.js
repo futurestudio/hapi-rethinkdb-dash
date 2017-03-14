@@ -125,7 +125,7 @@ experiment('User methods:', function () {
         payload: {
           name: 'marcus'
         },
-        credentials: users[0]
+        credentials: users[ 0 ]
       }
 
       server.inject(options, (reply) => {
@@ -133,8 +133,8 @@ experiment('User methods:', function () {
 
         User.run().then(function (users) {
           Code.expect(users.length).to.equal(1)
-          Code.expect(users[0].name).to.equal('marcus')
-          Code.expect(users[0].email).to.equal('info@futurestud.io')
+          Code.expect(users[ 0 ].name).to.equal('marcus')
+          Code.expect(users[ 0 ].email).to.equal('info@futurestud.io')
           done()
         })
       })
@@ -149,7 +149,7 @@ experiment('User methods:', function () {
         payload: {
           url: '123'
         },
-        credentials: users[0]
+        credentials: users[ 0 ]
       }
 
       server.inject(options, (reply) => {
@@ -169,7 +169,7 @@ experiment('User methods:', function () {
           new_password: 'doesntmatter',
           confirm_new_password: 'doesntmatter'
         },
-        credentials: users[0]
+        credentials: users[ 0 ]
       }
 
       server.inject(options, (reply) => {
@@ -189,7 +189,7 @@ experiment('User methods:', function () {
           new_password: 'newpassword',
           confirm_new_password: 'newpassword-wrong'
         },
-        credentials: users[0]
+        credentials: users[ 0 ]
       }
 
       server.inject(options, (reply) => {
@@ -209,7 +209,7 @@ experiment('User methods:', function () {
           new_password: 'short',
           confirm_new_password: 'short'
         },
-        credentials: users[0]
+        credentials: users[ 0 ]
       }
 
       server.inject(options, (reply) => {
@@ -229,7 +229,7 @@ experiment('User methods:', function () {
           new_password: 'newpassword',
           confirm_new_password: 'newpassword'
         },
-        credentials: users[0]
+        credentials: users[ 0 ]
       }
 
       server.inject(options, (reply) => {
@@ -239,99 +239,4 @@ experiment('User methods:', function () {
     })
   })
 
-// test('Should reset users password', function (done) {
-//   var data = {
-//     new_password: 'newpassword',
-//     confirm_new_password: 'newpassword',
-//     reset_token: user.password_reset_token
-//   }
-//
-//   Core.users.resetPassword(data).then(function (result) {
-//     Code.expect(result).to.be.an.object()
-//     // assert(result)
-//     // assert(result.password)
-//     // assert.equal(result.password_reset_token, undefined)
-//     // assert.equal(result.password_reset_deadline, undefined)
-//     done()
-//   }).catch(function (error) {
-//     done(error)
-//   })
-// })
-//
-// test('Should not reset users password: wrong reset token', function (done) {
-//   var data = {
-//     new_password: 'newpassword',
-//     confirm_new_password: 'newpassword',
-//     reset_token: 'wrongResetToken'
-//   }
-//
-//   Core.users.resetPassword(data).then(function (result) {
-//     Code.expect(result).to.be.null()
-//     done()
-//   }).catch(function (error) {
-//     Code.expect(error).to.be.an.object()
-//     done()
-//   })
-// })
-//
-// test('Should not reset users password: passwords don’t match', function (done) {
-//   var data = {
-//     new_password: 'newpassword',
-//     confirm_new_password: 'anothernewpassword',
-//     reset_token: user.password_reset_token
-//   }
-//
-//   Core.users.resetPassword(data).then(function (result) {
-//     Code.expect(result).to.be.null()
-//     done()
-//   }).catch(function (error) {
-//     Code.expect(error).to.be.an.object()
-//     done()
-//   })
-// })
-//
-// test('Should not reset users password: reset token missing', function (done) {
-//   var data = {
-//     new_password: 'newpassword',
-//     confirm_new_password: 'newpassword'
-//   }
-//
-//   Core.users.resetPassword(data).then(function (result) {
-//     Code.expect(result).to.be.null()
-//     done()
-//   }).catch(function (error) {
-//     Code.expect(error).to.be.an.object()
-//     done()
-//   })
-// })
-//
-// test('Should not reset users password: new password missing', function (done) {
-//   var data = {
-//     confirm_new_password: 'newpassword',
-//     reset_token: user.password_reset_token
-//   }
-//
-//   Core.users.resetPassword(data).then(function (result) {
-//     Code.expect(result).to.be.null()
-//     done()
-//   }).catch(function (error) {
-//     Code.expect(error).to.be.an.object()
-//     done()
-//   })
-// })
-//
-// test('Should not reset users password: confirm password token missing', function (done) {
-//   var data = {
-//     new_password: 'newpassword',
-//     reset_token: user.password_reset_token
-//   }
-//
-//   Core.users.resetPassword(data).then(function (result) {
-//     Code.expect(result).to.be.null()
-//     done()
-//   }).catch(function (error) {
-//     Code.expect(error).to.be.an.object()
-//     done()
-//   })
-// })
 })

@@ -1,7 +1,6 @@
 'use strict'
 
 const Joi = require('joi')
-const Core = require('./../core')
 const _ = require('lodash')
 const User = require('./../models').User
 let Users
@@ -88,18 +87,17 @@ Users = {
 
         user.save().then(function (doc) {
           request.cookieAuth.set(doc)
-          return reply.view('user/profile', { successmessage: 'Profile update successful.' })
+          return reply.view('user/profile', { successmessage: 'Profile update successful.', user: doc })
         })
       }).catch(function (error) {
-        console.log(error)
         const status = error.isBoom ? error.output.statusCode : 400
         return reply.view('user/profile', { errormessage: error.output.payload.message }).code(status)
       })
     },
     validate: {
       payload: {
-        name: Joi.string().label('Name'),
-        url: Joi.string().label('Url').uri()
+        name: Joi.string().allow('').optional().label('Name'),
+        url: Joi.string().allow('').optional().uri().label('Url')
       },
       options: {
         abortEarly: false
@@ -120,51 +118,6 @@ Users = {
 
         return reply.view('user/profile', data).code(400)
       }
-    }
-  },
-
-  /**
-   * Forgot password: sends an email with the new password if the user is already registered
-   */
-  showForgotPassword: {
-    handler: function (request, reply) {
-      return reply.view('forgot-password')
-    }
-  },
-
-  /**
-   * Forgot password: sends an email with the new password if the user is already registered
-   */
-  forgotPassword: {
-    handler: function (request, reply) {
-      // TODO: redirect to login if already authenticated?
-
-      return Core.users.forgotPassword(request.payload).then(function (user) {
-        return reply.view('forgot-password', { successmessage: 'Email sent successfully. Check your inbox!' })
-      }).catch(function (error) {
-        return reply.view('forgot-password', { errormessage: error.output.payload.message })
-      })
-    }
-  },
-
-  showResetPassword: {
-    handler: function (request, reply) {
-      return reply.view('reset-password', { resetToken: request.params.resetToken })
-    }
-  },
-
-  resetPassword: {
-    handler: function (request, reply) {
-      // TODO: redirect to login if already authenticated?
-
-      return Core.users.resetPassword(request.payload).then(function (user) {
-        request.cookieAuth.set(user)
-        return reply.redirect('/profile')
-
-        //return reply.view('reset-password', {successmessage: 'Password successfully changed!'})
-      }).catch(function (error) {
-        return reply.view('reset-password', { errormessage: error.output.payload.message })
-      })
     }
   }
 }
