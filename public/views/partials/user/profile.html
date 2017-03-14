@@ -27,12 +27,11 @@
 
         	<hr>
 
+            <p>
+                <strong>Email Address: </strong> {{user.email}}
+            </p>
 	    	<form accept-charset="UTF-8" role="form" method="POST" action="/profile">
             <fieldset>
-	    	  	<div class="form-group">
-				    <label for="email">Email address</label>
-	    		    <input class="form-control" placeholder="E-mail" name="email" id="email" type="text" value="{{user.email}}">
-	    		</div>
 	    		<div class="form-group">
 				    <label for="name">Name</label>
 	    			<input class="form-control" placeholder="Name" name="name" id="name" type="text" value="{{user.name}}">

@@ -45,6 +45,7 @@ User.define('comparePassword', function (candidatePassword) {
       if (isMatch) {
         return resolve(self)
       }
+
       return reject(Boom.badRequest('The entered password is not correct.'))
     })
   })

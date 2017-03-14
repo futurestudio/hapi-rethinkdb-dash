@@ -3,6 +3,7 @@
 const api = require('../core')
 let when = require('when')
 let _ = require('lodash')
+let User = require('./../models').User
 let that = this
 let users
 
@@ -14,22 +15,10 @@ users = {
    *
    * @returns User
    */
-  find: {
-    handler: function (request, reply) {
-      return api.users.find().then(function (data) {
-        return reply(data)
-      })
-    }
-  },
-
-  /**
-   *
-   * @returns User
-   */
   findById: {
     handler: function (request, reply) {
-      return api.users.findById(request.params.user_id).then(function (data) {
-        return reply(data)
+      return User.findById(request.params.user_id).then(function (user) {
+        return reply(transformReply(user))
       })
     }
   },
@@ -41,8 +30,8 @@ users = {
   findByEmail: {
     handler: function (request, reply) {
       const email = request.payload.email
-      return api.users.findByEmail(email).then(function (data) {
-        return reply(data)
+      return User.findByEmail(email).then(function (user) {
+        return reply(transformReply(user))
       })
     }
   },

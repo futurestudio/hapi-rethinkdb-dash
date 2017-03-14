@@ -118,13 +118,12 @@ experiment('User methods:', function () {
   })
 
   test('Should update user data', function (done) {
-    // TODO
     User.run().then(function (users) {
       const options = {
         url: '/profile',
         method: 'POST',
         payload: {
-          username: 'marcus'
+          name: 'marcus'
         },
         credentials: users[0]
       }
@@ -134,7 +133,7 @@ experiment('User methods:', function () {
 
         User.run().then(function (users) {
           Code.expect(users.length).to.equal(1)
-          Code.expect(users[0].username).to.equal('marcus')
+          Code.expect(users[0].name).to.equal('marcus')
           Code.expect(users[0].email).to.equal('info@futurestud.io')
           done()
         })
@@ -143,7 +142,6 @@ experiment('User methods:', function () {
   })
 
   test('Should not update user data: url is wrong', function (done) {
-    // TODO
     User.run().then(function (users) {
       const options = {
         url: '/profile',
@@ -162,10 +160,9 @@ experiment('User methods:', function () {
   })
 
   test('Should not change password: old password wrong', function (done) {
-    // TODO
     User.run().then(function (users) {
       const options = {
-        url: '/profile',
+        url: '/profile/change-password',
         method: 'POST',
         payload: {
           old_password: 'wrongpassword',
@@ -183,10 +180,9 @@ experiment('User methods:', function () {
   })
 
   test('Should not change password: confirm is different to new', function (done) {
-    // TODO
     User.run().then(function (users) {
       const options = {
-        url: '/profile',
+        url: '/profile/change-password',
         method: 'POST',
         payload: {
           old_password: 'password',
@@ -204,10 +200,9 @@ experiment('User methods:', function () {
   })
 
   test('Should not change password: new too short', function (done) {
-    // TODO
     User.run().then(function (users) {
       const options = {
-        url: '/profile',
+        url: '/profile/change-password',
         method: 'POST',
         payload: {
           old_password: 'password',
@@ -225,10 +220,9 @@ experiment('User methods:', function () {
   })
 
   test('Should change the password', function (done) {
-    // TODO
     User.run().then(function (users) {
       const options = {
-        url: '/profile',
+        url: '/profile/change-password',
         method: 'POST',
         payload: {
           old_password: 'password',

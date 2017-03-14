@@ -42,11 +42,6 @@ const Routes = [
     method: 'POST',
     path: '/reset-password',
     config: Handler.resetPassword
-  },
-  {
-    method: 'POST',
-    path: '/profile/delete-account',
-    config: Handler.delete
   }
 ]
 
