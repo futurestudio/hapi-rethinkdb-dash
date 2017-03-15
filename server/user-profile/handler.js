@@ -40,17 +40,16 @@ Users = {
         return reply.view('user/change-password', { successmessage: 'Password change successful.' })
       }).catch(function (error) {
         const status = error.isBoom ? error.output.statusCode : 400
-        return reply.view('user/change-password', { errormessage: error.output.payload.message }).code(status)
+        return reply.view('user/change-password', { errormessage: error.message }).code(status)
       })
     },
     validate: {
       payload: {
         old_password: Joi.string().required().min(6).label('Old Password'),
         new_password: Joi.string().required().min(6).label('New Password'),
-        confirm_new_password:
-          Joi
-            .any().required().label('New Password Confirm')
-            .valid(Joi.ref('new_password')).options({ language: { any: { allowOnly: 'must match password' } } })
+        confirm_new_password: Joi
+          .any().required().label('New Password Confirm')
+          .valid(Joi.ref('new_password')).options({ language: { any: { allowOnly: 'must match password' } } })
       },
       options: {
         abortEarly: false
@@ -91,7 +90,7 @@ Users = {
         })
       }).catch(function (error) {
         const status = error.isBoom ? error.output.statusCode : 400
-        return reply.view('user/profile', { errormessage: error.output.payload.message }).code(status)
+        return reply.view('user/profile', { errormessage: error.message }).code(status)
       })
     },
     validate: {

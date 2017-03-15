@@ -58,7 +58,7 @@ Users = {
         return reply.redirect('/profile')
       }).catch(function (error) {
         const status = error.isBoom ? error.output.statusCode : 400
-        return reply.view('signup', { errormessage: error.output.payload.message }).code(status)
+        return reply.view('signup', { errormessage: error.message }).code(status)
       })
     },
     validate: {
@@ -139,7 +139,7 @@ Users = {
 
         return reply.redirect('/profile')
       }).catch(function (error) {
-        return reply.view('login', { errormessage: error.output.payload.message })
+        return reply.view('login', { errormessage: error.message })
       })
     },
     validate: {
