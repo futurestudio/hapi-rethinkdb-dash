@@ -6,7 +6,7 @@ Your Node.js boilerplate based on [hapi](http://hapijs.com/) and [RethinkDB](htt
 [![Build Status](https://semaphoreci.com/api/v1/futurestudio/hapi-rethinkdb-dash/branches/develop/badge.svg)](https://semaphoreci.com/futurestudio/hapi-rethinkdb-dash)
 [![Known Vulnerabilities](https://snyk.io/test/github/fs-opensource/hapi-rethinkdb-dash/badge.svg)](https://snyk.io/test/github/fs-opensource/hapi-rethinkdb-dash)
 
-This is a project boilerplate based on NodeJS and RethinkDB. It reduces the initial effort which comes for every project. You can start with the fun things and skip the implementation of an account system (for the 25th time).
+This is a project boilerplate based on Node.js and RethinkDB. It reduces the initial effort which comes for every project. You can start with the fun things and skip the implementation of an account system (for the 25th time).
 
 Development of Hapi-RethinkDB-Dash is ongoing and we plan to implement new features over time. The following list depicts the already available features
 
@@ -24,21 +24,21 @@ Development of Hapi-RethinkDB-Dash is ongoing and we plan to implement new featu
 ## Stack
 Hapi-RethinkDB-Dash requires
 
-- NodeJS
+- Node.js
 - RethinkDB
 
 Besides the core technologies it uses the following components (this list is very likely incomplete):
 
-- [hapi](https://hapijs.com/) — Node.js Web Framework
-- [RethinkDB](https://rethinkdb.com/) — Open-Source Database for the realtime web
-- [Handlebars](http://handlebarsjs.com/) — HTML Templating Engine
+- [hapi](https://hapijs.com/) — Node.js web framework
+- [RethinkDB](https://rethinkdb.com/) — Open-Source database for the realtime web
+- [Handlebars](http://handlebarsjs.com/) — HTML templating engine
 - [bcrypt](https://www.npmjs.com/package/bcrypt) — For password encryption
-- [Twitter Bootstrap](http://getbootstrap.com/) — UI Component & Layout Library
-- [Mocha](https://www.npmjs.com/package/mocha) — node.js Testing framework
+- [Twitter Bootstrap v3](http://getbootstrap.com/) — UI component & layout library
+- [Lab](https://github.com/hapijs/lab) — Node.js testing framework
 
 
 ## Configuration & Install
-Install NodeJS and RethinkDB before usage.
+Install Node.js and RethinkDB before usage.
 
 ```bash
 git clone git@github.com:fs-opensource/hapi-rethinkdb-dash.git
@@ -66,7 +66,7 @@ Start server
 node server
 ```
 
-Everthing went smooth? Visit
+Everything went smooth? Visit
 
 ```bash
 localhost:3000
