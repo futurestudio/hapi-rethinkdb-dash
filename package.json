@@ -21,7 +21,8 @@
     "thinky": "~2.3.8",
     "validator": "~7.0.0",
     "vision": "~4.1.1",
-    "when": "~3.7.8"
+    "when": "~3.7.8",
+    "snyk": "^1.30.1"
   },
   "devDependencies": {
     "code": "~4.0.0",
@@ -40,6 +41,9 @@
   },
   "scripts": {
     "start": "node server",
-    "test": "lab --assert code --leaks --coverage --coverage-exclude public --coverage-exclude server/config"
-  }
+    "test": "lab --assert code --leaks --coverage --coverage-exclude public --coverage-exclude server/config",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
