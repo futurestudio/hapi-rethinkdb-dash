@@ -6,6 +6,19 @@ Your Node.js boilerplate based on [hapi](http://hapijs.com/) and [RethinkDB](htt
 [![Build Status](https://semaphoreci.com/api/v1/futurestudio/hapi-rethinkdb-dash/branches/develop/badge.svg)](https://semaphoreci.com/futurestudio/hapi-rethinkdb-dash)
 [![Known Vulnerabilities](https://snyk.io/test/github/fs-opensource/hapi-rethinkdb-dash/badge.svg)](https://snyk.io/test/github/fs-opensource/hapi-rethinkdb-dash)
 
+
+## Futureflix
+`hapi-rethinkdb-dash` is outdated and currently unmaintained. You can still benefit from the ideas within this code.
+
+We started **[learn hapi](http://learnhapi.com) as a learning path for the hapi web framework**. Become a hapi master while following the tutorial series. There you’ll build a complete app from start to finish.
+
+Check out the [Futureflix Starter Kit](https://github.com/fs-opensource/futureflix-starter-kit) for more details :tv:
+
+
+-----
+
+
+## Project Overview
 This is a project boilerplate based on Node.js and RethinkDB. It reduces the initial effort which comes for every project. You can start with the fun things and skip the implementation of an account system (for the 25th time).
 
 Development of Hapi-RethinkDB-Dash is ongoing and we plan to implement new features over time. The following list depicts the already available features
