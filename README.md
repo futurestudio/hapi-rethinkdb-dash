@@ -10,7 +10,7 @@ Your Node.js boilerplate based on [hapi](http://hapijs.com/) and [RethinkDB](htt
 ## Futureflix
 `hapi-rethinkdb-dash` is outdated and currently unmaintained. You can still benefit from the ideas within this code.
 
-We started **[learn hapi](http://learnhapi.com) as a learning path for the hapi web framework**. Become a hapi hero while following the tutorial series. 
+We started **[learn hapi](http://learnhapi.com) as a learning path for the hapi web framework**. Become a hapi hero by following the tutorial series. 
 
 <p>
   <a href="http://learnhapi.com">	
