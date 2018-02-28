@@ -12,12 +12,9 @@ Your Node.js boilerplate based on [hapi](http://hapijs.com/) and [RethinkDB](htt
 
 We started **[learn hapi](http://learnhapi.com) as a learning path for the hapi web framework**. Become a hapi hero while following the tutorial series. 
 
-
-<p>
-    <a href="http://learnhapi.com">	
-      <img src="https://futurestud.io/images/badges/hapi-hero-md.svg" height="30" />	
-    </a>
-</p>
+<a href="http://learnhapi.com">	
+  <img src="https://futurestud.io/images/badges/hapi-hero-md.svg" height="30" />	
+</a>
 
 You’ll build a complete app from start to finish.
 
