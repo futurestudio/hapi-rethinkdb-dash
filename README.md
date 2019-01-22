@@ -4,7 +4,7 @@ hapi RethinkDB Dash
 Your Node.js boilerplate based on [hapi](http://hapijs.com/) and [RethinkDB](https://rethinkdb.com/).
 
 [![Build Status](https://semaphoreci.com/api/v1/futurestudio/hapi-rethinkdb-dash/branches/develop/badge.svg)](https://semaphoreci.com/futurestudio/hapi-rethinkdb-dash)
-[![Known Vulnerabilities](https://snyk.io/test/github/fs-opensource/hapi-rethinkdb-dash/badge.svg)](https://snyk.io/test/github/fs-opensource/hapi-rethinkdb-dash)
+[![Known Vulnerabilities](https://snyk.io/test/github/fs-opensource/hapi-rethinkdb-dash/badge.svg)](https://snyk.io/test/github/fs-opensource/hapi-rethinkdb-dash) [![Greenkeeper badge](https://badges.greenkeeper.io/futurestudio/hapi-rethinkdb-dash.svg)](https://greenkeeper.io/)
 
 
 ## Futureflix
